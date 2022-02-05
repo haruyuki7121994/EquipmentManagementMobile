@@ -86,9 +86,9 @@ class HomePage extends StatelessWidget {
       case 0:
         return MainPage();
       case 1:
-        return HistoryPage();
-      case 2:
         return QrcodePage();
+      case 2:
+        return HistoryPage();
       case 3:
         return MorePage();
     }
