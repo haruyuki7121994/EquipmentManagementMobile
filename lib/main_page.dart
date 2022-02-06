@@ -72,7 +72,7 @@ class Header extends StatelessWidget {
                     prefixIcon: Icon(
                       Icons.search,
                     ),
-                    hintText: 'Search',
+                    hintText: 'Search by name',
                     filled: true,
                     fillColor: Theme.of(context).cardColor,
 

@@ -70,10 +70,10 @@ class HomePage extends StatelessWidget {
         context.read<HomeCubit>().getMain();
         break;
       case 1:
-        context.read<HomeCubit>().getCatalog();
+        context.read<HomeCubit>().getQrcode();
         break;
       case 2:
-        context.read<HomeCubit>().getNotification();
+        context.read<HomeCubit>().getHistory();
         break;
       case 3:
         context.read<HomeCubit>().getMore();
