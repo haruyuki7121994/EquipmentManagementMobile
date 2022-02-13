@@ -6,6 +6,7 @@ import 'main_page.dart';
 import 'more_page.dart';
 import 'qrcode_page.dart';
 import 'history_page.dart';
+import 'notification_page.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
@@ -51,6 +52,12 @@ class HomePage extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
+                    Icons.notifications,
+                  ),
+                  label: "",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
                     Icons.more_horiz,
                   ),
                   label: "",
@@ -76,6 +83,9 @@ class HomePage extends StatelessWidget {
         context.read<HomeCubit>().getHistory();
         break;
       case 3:
+        context.read<HomeCubit>().getNotification();
+        break;
+      case 4:
         context.read<HomeCubit>().getMore();
         break;
     }
@@ -90,6 +100,8 @@ class HomePage extends StatelessWidget {
       case 2:
         return HistoryPage();
       case 3:
+        return NotificationPage();
+      case 4:
         return MorePage();
     }
     return MainPage();
