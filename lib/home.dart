@@ -53,18 +53,16 @@ class HomePage extends StatelessWidget {
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.account_circle_sharp,
-                    Icons.notifications,
                   ),
                   label: "",
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.more_horiz,
-
+                    Icons.notifications,
                   ),
                   label: "",
                 ),
-              ],
+        ],
             ),
             body: _buildBody(state),
           ),
@@ -102,9 +100,9 @@ class HomePage extends StatelessWidget {
       case 2:
         return HistoryPage();
       case 3:
-        return NotificationPage();
-      case 4:
         return MorePage();
+      case 4:
+        return NotificationPage();
     }
     return MainPage();
   }
