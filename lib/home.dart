@@ -51,7 +51,7 @@ class HomePage extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.more_horiz,
+                    Icons.account_circle_sharp,
                   ),
                   label: "",
                 ),

@@ -1,3 +1,4 @@
+import 'package:appqrcode/wellcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,7 +8,7 @@ import 'home_cubit.dart';
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
-    return new MaterialApp(home: LoginPage());
+    return new MaterialApp(home: WellomePage());
   }
 }
 
@@ -43,7 +44,7 @@ class _LoginPageState extends State<LoginPage>{
           crossAxisAlignment: CrossAxisAlignment.start,
           children:<Widget>[
             Padding(
-              padding: const EdgeInsets.fromLTRB(30,0,0,100),
+              padding: const EdgeInsets.fromLTRB(30,0,0,150),
               child: Text('Hello \nWellcome To The Product Management App',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
@@ -103,12 +104,13 @@ class _LoginPageState extends State<LoginPage>{
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 60),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: SizedBox(
                 width: double.infinity,
+                height: 50,
                 child: RaisedButton(
                   color: Colors.blue,
-                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(8))),
+                  shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
                   onPressed: onSignInClicked,
                   child: Text("SIGN IN", style: TextStyle(
                       color: Colors.white ,fontSize: 16
@@ -117,16 +119,59 @@ class _LoginPageState extends State<LoginPage>{
               ),
             ),
             Container(
-              height: 130,
+              height: 80,
               width: double.infinity,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
-                  Text(
-                    "NEW USER? SIGN UP",
-                    style: TextStyle(fontSize: 15,color: Color(0xff888888)),
+                MaterialButton(
+                  minWidth: 230,
+                  height: 40,
+                  onPressed: (){
 
+                  },
+                  color: Colors.blue[900],
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(50)
                   ),
+                  child: Text(
+                        "Sign in with Facebook",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18
+                    ),
+                  ),
+                ),
+                  MaterialButton(
+                    minWidth: 240,
+                    height: 40,
+                    onPressed: (){
+
+                    },
+                    color: Colors.redAccent,
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(50)
+                    ),
+                    child:
+                    Text(
+                      "Sign in with Gmail",
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 18
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Container(
+              height: 130,
+              width: double.infinity,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.end,
+                children: <Widget>[
                   Text(
                     "FORGOT PASSWORD?",
                     style: TextStyle(fontSize: 15,color: Colors.blue),
