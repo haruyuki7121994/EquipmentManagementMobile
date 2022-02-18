@@ -1,4 +1,3 @@
-import "package:appqrcode/bottomNavigation.dart";
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_cubit.dart';

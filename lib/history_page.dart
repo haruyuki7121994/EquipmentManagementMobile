@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-
+import 'package:appqrcode/details/details_screen.dart';
 class HistoryPage extends StatefulWidget {
   const HistoryPage({Key? key}) : super(key: key);
 
@@ -28,7 +28,7 @@ class _HistoryPageState extends State<HistoryPage> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget> [
             TextButton(
-              onPressed: () {  },
+              onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => DetailsScreen())),
               child: Text('Floor scale F100',textAlign: TextAlign.left),
             ),
             TextButton(
