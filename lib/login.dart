@@ -1,17 +1,11 @@
-import 'package:appqrcode/wellcome.dart';
+import 'package:appqrcode/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home.dart';
 import 'home_cubit.dart';
 
-class MyApp extends StatelessWidget{
-  @override
-  Widget build(BuildContext context) {
-    return new MaterialApp(home: WellomePage());
 
-  }
-}
 
 class LoginPage extends StatefulWidget {
   @override

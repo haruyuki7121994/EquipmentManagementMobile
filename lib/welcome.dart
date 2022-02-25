@@ -4,14 +4,15 @@ import 'package:appqrcode/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
-void main() {
-  runApp(MaterialApp(
-    debugShowCheckedModeBanner: false,
-    home: HomePage(),
-  ));
-}
+// void main() {
+//   runApp(MaterialApp(
+//     debugShowCheckedModeBanner: false,
+//     home: HomePage(),
+//   ));
+// }
 
-class WellomePage extends StatelessWidget{
+class WelcomePage extends StatelessWidget{
+  static String routeName = '/welcome';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
