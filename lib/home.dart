@@ -102,9 +102,9 @@ class HomePage extends StatelessWidget {
       case 2:
         return HistoryPage();
       case 3:
-        return MorePage();
-      case 4:
         return NotificationPage();
+      case 4:
+        return MorePage();
     }
     return MainPage();
   }

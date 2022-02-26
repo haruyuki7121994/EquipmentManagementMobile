@@ -30,7 +30,6 @@ class Body extends StatelessWidget {
                 color: Color(0xFFF6F7F9),
                 child: Column(
                   children: [
-                    ColorDots(product: product),
                     TopRoundedContainer(
                       color: Colors.white,
                       child: Padding(

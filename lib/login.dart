@@ -1,6 +1,8 @@
 import 'package:appqrcode/welcome.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home.dart';
 import 'home_cubit.dart';
@@ -107,7 +109,7 @@ class _LoginPageState extends State<LoginPage>{
                 child: RaisedButton(
                   color: Colors.blue,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
-                  onPressed: onSignInClicked,
+                  onPressed: () => onSignInClicked(_userController.text, _passController.text),
                   child: Text("SIGN IN", style: TextStyle(
                       color: Colors.white ,fontSize: 16
                   ),),
@@ -132,31 +134,57 @@ class _LoginPageState extends State<LoginPage>{
       ),
     );
   }
-  void onSignInClicked(){
-    setState(() {
-      if(_userController.text.length < 6 || !_userController.text.contains("@")){
-        _userInvalid = true;
-      }else{
-        _userInvalid = false;
-      }
-
-      if(_passController.text.length < 6){
-        _passInvalid = true;
-      }else{
-        _passInvalid = false;
-      }
-
-      if(!_userInvalid && !_passInvalid){
-        // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
+  onSignInClicked(String username, password) async{
+    String url = "http://192.168.1.2:8080/api/auth/login";
+    Map data = {
+      'username': username,
+      'password': password
+    };
+    var jsonResponse;
+    var response = await http.post(Uri.parse(url),
+        headers: {
+          "content-type" : "application/json",
+          "accept" : "application/json",
+        },
+        body: jsonEncode(data));
+    if(response.statusCode == 200){
+      jsonResponse = jsonDecode(response.body);
+      if(jsonResponse != null){
+        print(jsonResponse['data']['token']);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) {
-              return BlocProvider(
-                create: (_) => HomeCubit(),
-                child: HomePage(),
-              );
+          return BlocProvider(
+            create: (_) => HomeCubit(),
+            child: HomePage(),
+          );
         }));
       }
-    });
+    }
+    //print(response.statusCode);
+    //setState(() {
+      // if(_userController.text.length < 6 || !_userController.text.contains("@")){
+      //   _userInvalid = true;
+      // }else{
+      //   _userInvalid = false;
+      // }
+      //
+      // if(_passController.text.length < 6){
+      //   _passInvalid = true;
+      // }else{
+      //   _passInvalid = false;
+      // }
+
+    //   if(!_userInvalid && !_passInvalid){
+    //     // Navigator.push(context, MaterialPageRoute(builder: gotoHome));
+    //     Navigator.push(
+    //         context, MaterialPageRoute(builder: (context) {
+    //           return BlocProvider(
+    //             create: (_) => HomeCubit(),
+    //             child: HomePage(),
+    //           );
+    //     }));
+    //   }
+    // });
   }
 
   void onTogglesShowPass(){
