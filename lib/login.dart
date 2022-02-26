@@ -33,7 +33,8 @@ class _LoginPageState extends State<LoginPage>{
         constraints: BoxConstraints.expand(),
         decoration: BoxDecoration(
           image: DecorationImage(
-              fit: BoxFit.fill,
+              fit: BoxFit.cover,
+              repeat: ImageRepeat.noRepeat,
               image: AssetImage(
                   "images/login.png"
               )
@@ -43,18 +44,18 @@ class _LoginPageState extends State<LoginPage>{
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children:<Widget>[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(30,0,0,150),
-              child: Text('Hello \nWellcome To The Product Management App',
+            Container(
+              padding: const EdgeInsets.fromLTRB(110,0,0,20),
+              child: Text('Login',
                 style: TextStyle(
                   fontWeight: FontWeight.bold,
                   color: Colors.white,
-                  fontSize: 35,
+                  fontSize: 30,
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0,0,0,40),
+              padding: const EdgeInsets.fromLTRB(0,30,0,20),
               child: TextField(
                 style: TextStyle(
                     fontSize: 20,
@@ -72,7 +73,7 @@ class _LoginPageState extends State<LoginPage>{
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 40),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 30),
               child: Stack(
                 alignment: AlignmentDirectional.centerEnd,
                 children:<Widget>[
@@ -104,10 +105,10 @@ class _LoginPageState extends State<LoginPage>{
               ),
             ),
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
               child: SizedBox(
                 width: double.infinity,
-                height: 50,
+                height: 30,
                 child: RaisedButton(
                   color: Colors.blue,
                   shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(50))),
@@ -119,56 +120,7 @@ class _LoginPageState extends State<LoginPage>{
               ),
             ),
             Container(
-              height: 80,
-              width: double.infinity,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                MaterialButton(
-                  minWidth: 230,
-                  height: 40,
-                  onPressed: (){
-
-                  },
-                  color: Colors.blue[900],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(50)
-                  ),
-                  child: Text(
-                        "Sign in with Facebook",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontWeight: FontWeight.w600,
-                      fontSize: 18
-                    ),
-                  ),
-                ),
-                  MaterialButton(
-                    minWidth: 240,
-                    height: 40,
-                    onPressed: (){
-
-                    },
-                    color: Colors.redAccent,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)
-                    ),
-                    child:
-                    Text(
-                      "Sign in with Gmail",
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ),
-            Container(
-              height: 130,
-              width: double.infinity,
+              padding: const EdgeInsets.fromLTRB(0, 0, 0, 0),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[

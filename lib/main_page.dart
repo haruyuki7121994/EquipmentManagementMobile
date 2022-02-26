@@ -29,7 +29,7 @@ class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.all(2),
+      margin: EdgeInsets.all(1),
       decoration: BoxDecoration(
           image: DecorationImage(
               fit: BoxFit.fill,
@@ -39,7 +39,7 @@ class Header extends StatelessWidget {
           ),
           borderRadius: BorderRadius.circular(10)
       ),
-      padding: EdgeInsets.only(top:20,left:30,right:30),
+      padding: EdgeInsets.only(top:20,left:10,right:10),
       child: Stack(
         children: [
           Positioned(

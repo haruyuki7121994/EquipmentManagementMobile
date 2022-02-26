@@ -1,3 +1,4 @@
+import 'package:appqrcode/edit.dart';
 import 'package:flutter/material.dart';
 
 
@@ -13,17 +14,19 @@ class MorePage extends StatelessWidget {
             Icons.arrow_back,
             color: Colors.white,
           ),
-          onPressed: () {},
+          onPressed: () {
+
+          },
         ),
       ),
       body: Stack(
         alignment: Alignment.center,
-        children: [
+        children: <Widget>[
           Column(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Container(
-                height: 450,
+                height: 300,
                 width: double.infinity,
                 margin: EdgeInsets.symmetric(horizontal: 10),
                 child: Column(
@@ -45,32 +48,63 @@ class MorePage extends StatelessWidget {
                       '580 cmt8 q3 TpHCM',
                     ),
 
-                    Container(
-                      height: 55,
-                      width: double.infinity,
-                      child: RaisedButton(
-                        onPressed: () {},
-                        shape: RoundedRectangleBorder(
-                            side: BorderSide(
-                                color: Colors.white
-                            ),
-                            borderRadius: BorderRadius.circular(50)
+                Column(
+                  children: <Widget>[
+                    MaterialButton(
+                      minWidth: double.infinity,
+                      height: 40,
+                      onPressed:(){
+                        Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePage()));
+                      } ,
+                      shape: RoundedRectangleBorder(
+                          side: BorderSide(
+                              color: Colors.blue
+                          ),
+                          borderRadius: BorderRadius.circular(50)
+                      ),
+                      color: Colors.blue,
+                      child: Text(
+                        "Update",
+                        style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.w600,
+                            color: Colors.white
                         ),
-                        color: Colors.blue,
-                        child: Center(
+                      ),
+                    ),
+                    SizedBox(height:0),
+                  ],
+                ),
+                    Column(
+                      children: <Widget>[
+                        MaterialButton(
+                          minWidth: double.infinity,
+                          height: 40,
+                          onPressed:(){
+                            Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePage()));
+                          } ,
+                          shape: RoundedRectangleBorder(
+                              side: BorderSide(
+                                  color: Colors.grey
+                              ),
+                              borderRadius: BorderRadius.circular(50)
+                          ),
+                          color: Colors.grey,
                           child: Text(
-                            "Update",
+                            "Logout",
                             style: TextStyle(
-                              fontSize: 23,
-                              color: Colors.white,
+                                fontSize: 20,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.white
                             ),
                           ),
                         ),
-                      ),
-                    )
-                  ],
+                        SizedBox(height: 5),
+                      ],
+                    ),
+              ],
                 ),
-              )
+              ),
             ],
           ),
           CustomPaint(

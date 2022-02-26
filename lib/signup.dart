@@ -1,3 +1,4 @@
+import 'package:appqrcode/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -59,25 +60,15 @@ class SignupPage extends StatelessWidget{
               ),
               Container(
           padding: EdgeInsets.only(top: 3, left: 3),
-          decoration:
-          BoxDecoration(
-            borderRadius: BorderRadius.circular(50),
-            border: Border(
-              bottom: BorderSide(color: Colors.black),
-              top: BorderSide(color: Colors.black),
-              left: BorderSide(color: Colors.black),
-              right: BorderSide(color: Colors.black),
-            ),
-          ),
           child: MaterialButton(
             minWidth: double.infinity,
-            height: 60,
-            onPressed: () {},
+            height: 40,
+            onPressed: () {Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));},
             color: Colors.blue,
             elevation: 0,
             shape: RoundedRectangleBorder(
               side: BorderSide(
-                  color: Colors.white,
+                  color: Colors.blue,
               ),
               borderRadius: BorderRadius.circular(50),
             ),
@@ -97,6 +88,7 @@ class SignupPage extends StatelessWidget{
                   Text(" Login", style:TextStyle(
                       fontWeight: FontWeight.w600,
                       fontSize: 18
+
                   ),
                   )
                 ],
@@ -117,14 +109,14 @@ Widget inputFile({label, obscureText = false})
       Text(
         label,
         style: TextStyle(
-            fontSize: 15,
+            fontSize: 10,
             fontWeight: FontWeight.w400,
             color:Colors.black87
         ),
 
       ),
       SizedBox(
-        height: 5,
+        height:10,
       ),
       TextField(
         obscureText: obscureText,
