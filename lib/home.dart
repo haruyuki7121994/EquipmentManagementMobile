@@ -1,4 +1,4 @@
-import "package:appqrcode/bottomNavigation.dart";
+import 'package:appqrcode/models/Product.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_cubit.dart';
@@ -7,11 +7,13 @@ import 'more_page.dart';
 import 'qrcode_page.dart';
 import 'history_page.dart';
 import 'notification_page.dart';
+import 'size_config.dart';
 
 class HomePage extends StatelessWidget {
   final GlobalKey<NavigatorState> navigatorKey = GlobalKey();
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     return BlocBuilder<HomeCubit, int>(
       builder: (_, state) {
         return WillPopScope(

@@ -1,4 +1,3 @@
-import "package:appqrcode/bottomNavigation.dart";
 import "package:flutter/material.dart";
 
 class MainPage extends StatefulWidget {
