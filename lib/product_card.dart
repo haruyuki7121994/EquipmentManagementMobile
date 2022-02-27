@@ -56,9 +56,9 @@ class ProductCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "\$${product.price}",
+                    "Status",
                     style: TextStyle(
-                      fontSize: getProportionateScreenWidth(18),
+                      fontSize: getProportionateScreenWidth(14),
                       fontWeight: FontWeight.w600,
                       color: kPrimaryColor,
                     ),
@@ -72,14 +72,14 @@ class ProductCard extends StatelessWidget {
                       width: getProportionateScreenWidth(28),
                       decoration: BoxDecoration(
                         color: product.isFavourite
-                            ? kPrimaryColor.withOpacity(0.15)
+                            ? kSecondaryColor.withOpacity(0.05)
                             : kSecondaryColor.withOpacity(0.1),
                         shape: BoxShape.circle,
                       ),
                       child: SvgPicture.asset(
-                        "assets/icons/Heart Icon_2.svg",
+                        "assets/icons/Success.svg",
                         color: product.isFavourite
-                            ? Color(0xFFFF4848)
+                            ? Color(0xFF70FF48)
                             : Color(0xFFDBDEE4),
                       ),
                     ),

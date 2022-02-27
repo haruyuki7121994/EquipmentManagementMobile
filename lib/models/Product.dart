@@ -27,10 +27,9 @@ List<Product> demoProducts = [
   Product(
     id: 1,
     images: [
-      "assets/images/ps4_console_white_1.png",
-      "assets/images/ps4_console_white_2.png",
-      "assets/images/ps4_console_white_3.png",
-      "assets/images/ps4_console_white_4.png",
+      "assets/images/bench_scale1.jpeg",
+      "assets/images/bench_scale2.jpeg",
+      "assets/images/bench_scale3.jpeg",
     ],
     colors: [
       Color(0xFFF6625E),
@@ -48,7 +47,7 @@ List<Product> demoProducts = [
   Product(
     id: 2,
     images: [
-      "assets/images/Image Popular Product 2.png",
+      "assets/images/scale 700ct.png",
     ],
     colors: [
       Color(0xFFF6625E),
@@ -56,7 +55,7 @@ List<Product> demoProducts = [
       Color(0xFFDECB9C),
       Colors.white,
     ],
-    title: "Floor Scale F150",
+    title: "Lab Scale F150",
     price: 50.5,
     description: description,
     rating: 4.1,
@@ -65,7 +64,7 @@ List<Product> demoProducts = [
   Product(
     id: 3,
     images: [
-      "assets/images/glap.png",
+      "assets/images/scale_1.png",
     ],
     colors: [
       Color(0xFFF6625E),
@@ -100,4 +99,4 @@ List<Product> demoProducts = [
 ];
 
 const String description =
-    "Id: 102";
+    "Id: 102\nName: Scale F100\nRange: 10kg - 1000kg\nResolution: 1kg\nHeight: 10cm\nWidth: 30cm\nWeight: 5kg\nCreate at: 10/02/2021";

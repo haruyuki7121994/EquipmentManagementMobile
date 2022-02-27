@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:appqrcode/components/default_button.dart';
 import 'package:appqrcode/models/Product.dart';
 import 'package:appqrcode/size_config.dart';
-
+import 'package:appqrcode/details/components/comment.dart';
 import 'color_dots.dart';
 import 'product_description.dart';
 import 'top_rounded_container.dart';
@@ -40,8 +40,11 @@ class Body extends StatelessWidget {
                           top: getProportionateScreenWidth(15),
                         ),
                         child: DefaultButton(
-                          text: "Add To Cart",
-                          press: () {},
+                          text: "Comment",
+                          press: () => Navigator.pushNamed(
+                                 context,
+                                 Comment.routeName,
+                               ),
                         ),
                       ),
                     ),
