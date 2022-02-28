@@ -135,7 +135,7 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
   onSignInClicked(String username, password) async{
-    String url = "http://192.168.1.2:8080/api/auth/login";
+    String url = "http://192.168.1.9:8080/api/auth/login";
     Map data = {
       'username': username,
       'password': password

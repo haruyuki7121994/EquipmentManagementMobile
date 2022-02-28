@@ -33,7 +33,7 @@ class HomePage extends StatelessWidget {
               showUnselectedLabels: false,
               selectedItemColor: Colors.black,
               unselectedItemColor: Colors.grey,
-              items: [
+              items: const [
                 BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
@@ -54,13 +54,13 @@ class HomePage extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.account_circle_sharp,
+                    Icons.notifications,
                   ),
                   label: "",
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.notifications,
+                    Icons.account_circle_sharp,
                   ),
                   label: "",
                 ),
