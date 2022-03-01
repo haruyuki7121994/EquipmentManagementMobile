@@ -8,6 +8,8 @@ class Cart {
   final int numOfItem;
 
   Cart({required this.product, required this.numOfItem});
+
+  void removeItem(String productId) {}
 }
 
 // Demo data for our cart
