@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home.dart';
 import 'home_cubit.dart';
-
+import 'package:shared_preferences/shared_preferences.dart';
 
 
 class LoginPage extends StatefulWidget {
@@ -135,7 +135,8 @@ class _LoginPageState extends State<LoginPage>{
     );
   }
   onSignInClicked(String username, password) async{
-    String url = "http://192.168.1.9:8080/api/auth/login";
+    String token;
+    String url = "http://192.168.1.5:8080/api/auth/login";
     Map data = {
       'username': username,
       'password': password
@@ -150,7 +151,8 @@ class _LoginPageState extends State<LoginPage>{
     if(response.statusCode == 200){
       jsonResponse = jsonDecode(response.body);
       if(jsonResponse != null){
-        print(jsonResponse['data']['token']);
+        token = jsonResponse['data']['token'];
+        _save(token);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) {
           return BlocProvider(
@@ -160,6 +162,7 @@ class _LoginPageState extends State<LoginPage>{
         }));
       }
     }
+
     //print(response.statusCode);
     //setState(() {
       // if(_userController.text.length < 6 || !_userController.text.contains("@")){
@@ -186,7 +189,16 @@ class _LoginPageState extends State<LoginPage>{
     //   }
     // });
   }
-
+  _save(String token) async{
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final value = token;
+    sharedPreferences.setString('token', value);
+  }
+  _read() async{
+    final sharedPreferences = await SharedPreferences.getInstance();
+    final value = sharedPreferences.getString('token');
+    print('read: $value');
+  }
   void onTogglesShowPass(){
     setState(() {
       _showPass = !_showPass;
