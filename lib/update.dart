@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'package:appqrcode/login.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -90,7 +89,6 @@ Widget inputFile({label, obscureText = false})
 {
   return Column(
     crossAxisAlignment: CrossAxisAlignment.start,
-
     children: <Widget>[
       Text(
         label,
