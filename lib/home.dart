@@ -3,7 +3,7 @@ import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_cubit.dart';
 import 'main_page.dart';
-import 'more_page.dart';
+import 'profile.dart';
 import 'qrcode_page.dart';
 import 'history_page.dart';
 import 'notification_page.dart';
@@ -104,7 +104,7 @@ class HomePage extends StatelessWidget {
       case 3:
         return NotificationPage();
       case 4:
-        return MorePage();
+        return Profile();
     }
     return MainPage();
   }
