@@ -47,8 +47,8 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   void initState(){
     super.initState();
-    String qrcode = 'equipment-1646593980823-test1';
-    _future = getEquipment(qrcode);
+    //String qrcode = 'equipment-1646593980823-test1';
+
   }
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -81,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onQRViewCreated: _onQRViewCreated,
             ),
           ),
+          Expanded(child: (result != null) ? Text("${result!.code}") : Text("fail")),
           Expanded(
             flex: 1,
             child: Center(
@@ -103,6 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       }else {
                         print("hasdata");
+                        String? qrcode = result!.code;
+                        _future = getEquipment(qrcode);
                         Equipment eq = snapshot.data!;
                         print(eq.toString());
                         WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -116,8 +119,6 @@ class _MyHomePageState extends State<MyHomePage> {
                         return Container();
                       }
                   }
-
-
                   return const CircularProgressIndicator();
                 },
               ),
@@ -148,7 +149,7 @@ class _MyHomePageState extends State<MyHomePage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
-        Future.delayed(Duration(seconds: 3), () {});
+        //Future.delayed(Duration(seconds: 3), () {});
 
       });
     });

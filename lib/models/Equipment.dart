@@ -1,10 +1,11 @@
 class Equipment {
-  Equipment({required this.id, required this.name, required this.qrcode, this.status, this.images});
+  Equipment({required this.id, required this.name, required this.qrcode, this.status, this.images,});
   final String id;
   final String name;
   final String qrcode;
   final String? status;
   final List<Images>? images;
+  //final List<Comments>? comments
 
   factory Equipment.fromJson(Map<String, dynamic> data){
     final id =  data['data']['id'] as String;
@@ -48,4 +49,11 @@ class Images {
   //     'path': path,
   //   };
   // }
+// class Comment {
+//     final String id;
+//     final String title;
+//     final String description;
+//     final String create_at;
+//     final String
+//   }
 }
