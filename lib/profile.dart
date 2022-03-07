@@ -218,7 +218,7 @@ Future<Album> fetchAlbum() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
   final response = await http
-      .get(Uri.parse('http://192.168.0.103:8080/api/auth/profile'), headers: {
+      .get(Uri.parse('http://192.168.1.5:8080/api/auth/profile'), headers: {
     "content-type": "application/json",
     "accept": "application/json",
     'Authorization': 'Bearer $value'

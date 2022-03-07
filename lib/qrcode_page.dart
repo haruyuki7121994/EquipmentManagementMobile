@@ -1,7 +1,13 @@
+import 'package:appqrcode/models/Equipment.dart';
+import 'package:appqrcode/product_card.dart';
 import "package:flutter/material.dart";
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
+import 'package:appqrcode/services/EquipmentService.dart';
+import 'package:appqrcode/details/details_screen.dart';
+import 'details/EquipmentDetails.dart';
+import 'models/Product.dart';
 
 class QrcodePage extends StatelessWidget {
   const QrcodePage({Key? key}) : super(key: key);
@@ -11,15 +17,6 @@ class QrcodePage extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // Try running your application with "flutter run". You'll see the
-        // application has a blue toolbar. Then, without quitting the app, try
-        // changing the primarySwatch below to Colors.green and then invoke
-        // "hot reload" (press "r" in the console where you ran "flutter run",
-        // or simply save your changes to "hot reload" in a Flutter IDE).
-        // Notice that the counter didn't reset back to zero; the application
-        // is not restarted.
         primarySwatch: Colors.blue,
       ),
       home: const MyHomePage(title: 'Flutter Demo Home Page'),
@@ -45,8 +42,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+  //late Equipment equipment;
+  Future<Equipment>? _future;
+  @override
+  void initState(){
+    super.initState();
+    String qrcode = 'equipment-1646593980823-test1';
+    _future = getEquipment(qrcode);
+  }
+
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
   Barcode? result;
+  Barcode? resultt;
   QRViewController? controller;
 
   // In order to get hot reload to work we need to pause the camera if the platform
@@ -63,6 +70,7 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
+    Equipment eq;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -76,10 +84,58 @@ class _MyHomePageState extends State<MyHomePage> {
           Expanded(
             flex: 1,
             child: Center(
-              child: (result != null)
-                  ? Text(
-                  'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
-                  : Text('Scan a code'),
+              child: FutureBuilder<Equipment>(
+                future: _future,
+                builder: (context, snapshot){
+                  print(snapshot.connectionState);
+                  switch(snapshot.connectionState){
+                    case ConnectionState.none:
+                      return Container();
+                    case ConnectionState.waiting:
+                      return Center(child: CircularProgressIndicator());
+                    case ConnectionState.active:
+                      return Text('');
+                    case ConnectionState.done:
+                      if (snapshot.hasError){
+                        return Text(
+                          '${snapshot.hasError}',
+                          style: TextStyle(color: Colors.red),
+                        );
+                      }else {
+                        print("hasdata");
+                        Equipment eq = snapshot.data!;
+                        print(eq.toString());
+                        WidgetsBinding.instance?.addPostFrameCallback((_) {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) =>
+                                    EquipmentDetail(equipment: eq)
+                            ),
+                          );
+                        });
+                        return Container();
+                      }
+                  }
+
+
+                  return const CircularProgressIndicator();
+                },
+              ),
+
+              //  child: (result != null)
+              //     ? Text(
+              //     'Barcode Type: ${describeEnum(result!.format)}   Data: ${result!.code}')
+              //     //: Text('Scan a code $qrcode'),
+              //     : ElevatedButton(
+              //         onPressed:() {
+              //           String qrcode = 'equipment-1646237449568-equipment3';
+              //           _future = getEquipment(qrcode);
+              //           Equipment equipment = _future as Equipment;
+              //          Navigator.push(context,
+              //           MaterialPageRoute(builder: (context) => EquipmentDetail(equipment: equipment))
+              //           );},
+              //         child: const Text('scan'),
+              //       ),
             ),
           )
         ],
@@ -92,6 +148,8 @@ class _MyHomePageState extends State<MyHomePage> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         result = scanData;
+        Future.delayed(Duration(seconds: 3), () {});
+
       });
     });
   }
@@ -102,3 +160,4 @@ class _MyHomePageState extends State<MyHomePage> {
     super.dispose();
   }
 }
+

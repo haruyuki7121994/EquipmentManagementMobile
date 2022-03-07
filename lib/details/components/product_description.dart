@@ -3,16 +3,17 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:appqrcode/models/Product.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
+import 'package:appqrcode/models/Equipment.dart';
 
 class ProductDescription extends StatelessWidget {
   const ProductDescription({
     Key? key,
-    required this.product,
-    this.pressOnSeeMore,
+    required this.equipment,
+
   }) : super(key: key);
 
-  final Product product;
-  final GestureTapCallback? pressOnSeeMore;
+  final Equipment equipment;
+
 
   @override
   Widget build(BuildContext context) {
@@ -23,38 +24,18 @@ class ProductDescription extends StatelessWidget {
           padding:
               EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: Text(
-            product.title,
+            equipment.name,
             style: Theme.of(context).textTheme.headline6,
           ),
         ),
-        Align(
-          alignment: Alignment.centerRight,
-          child: Container(
-            padding: EdgeInsets.all(getProportionateScreenWidth(15)),
-            width: getProportionateScreenWidth(64),
-            decoration: BoxDecoration(
-              color:
-              product.isFavourite ? Color(0xFFECECEC) : Color(0xFFEFEFEF),
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                bottomLeft: Radius.circular(20),
-              ),
-            ),
-            child: SvgPicture.asset(
-              "assets/icons/Success.svg",
-              color:
-              product.isFavourite ? Color(0xFF70FF48) : Color(0xFFDBDEE4),
-              height: getProportionateScreenWidth(16),
-            ),
-          ),
-        ),
+
         Padding(
           padding: EdgeInsets.only(
             left: getProportionateScreenWidth(20),
             right: getProportionateScreenWidth(64),
           ),
           child: Text(
-            product.description,
+            equipment.qrcode,
           ),
         ),
         // Padding(
