@@ -17,24 +17,25 @@ import 'package:appqrcode/details/components/comment.dart';
 class EquipmentDetail extends StatefulWidget {
   final Equipment equipment;
   const EquipmentDetail({Key? key, required this.equipment}) : super(key: key);
-  static String routeName = "/equipment_details";
+  //static String routeName = "/equipment_details";
 
   @override
   _MyAppState createState() => _MyAppState();
-
 }
 
 class _MyAppState extends State<EquipmentDetail> {
-  late Equipment equipment;
+
   List<GalleryItemModel> galleries = [];
   int _current = 0;
 
   @override
   void initState() {
     super.initState();
+
     widget.equipment.images!.forEach((image) {
       galleries.add(GalleryItemModel(
         id: image.id, resource: image.path, description: '',));
+
     });
   }
 
@@ -55,6 +56,8 @@ class _MyAppState extends State<EquipmentDetail> {
 
   @override
   Widget build(BuildContext context) {
+    Equipment equipment = widget.equipment;
+    print(equipment.id);
     return Scaffold(
       appBar: AppBar(
         title: Text("Detail", style: TextStyle( fontSize: 30, color: Colors.white),),
@@ -141,7 +144,8 @@ class _MyAppState extends State<EquipmentDetail> {
                       LableInfo(header: "Description", name: widget.equipment?.status),
                       SizedBox(height: 10,),
                       DefaultButton(text: "Comment",
-                        press: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Comment())))
+                        press: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Comment(equipment: equipment)))),
+
                     ],
                   ),
                 ),

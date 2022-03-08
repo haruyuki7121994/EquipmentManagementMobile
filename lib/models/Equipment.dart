@@ -1,11 +1,13 @@
+import 'package:appqrcode/details/components/comment.dart';
+
 class Equipment {
-  Equipment({required this.id, required this.name, required this.qrcode, this.status, this.images,});
+  Equipment({required this.id, required this.name, required this.qrcode, this.status, this.images, this.comments});
   final String id;
   final String name;
   final String qrcode;
   final String? status;
   final List<Images>? images;
-  //final List<Comments>? comments
+  final List<Comments>? comments;
 
   factory Equipment.fromJson(Map<String, dynamic> data){
     final id =  data['data']['id'] as String;
@@ -17,12 +19,18 @@ class Equipment {
         ? imagesData.map((imagesData) => Images.fromJson(imagesData))
         .toList()
         : <Images>[];
+    final commentsData = data['data']['comments'] as List<dynamic>?;
+    final comments = commentsData != null
+        ? commentsData.map((commentsData) => Comments.fromJson(commentsData))
+        .toList()
+        : <Comments>[];
     return Equipment(
       id: id,
       name: name,
       qrcode: qrcode,
       status: status ?? 'null',
       images: images,
+      comments: comments,
     );
   }
 }
@@ -49,11 +57,23 @@ class Images {
   //     'path': path,
   //   };
   // }
-// class Comment {
-//     final String id;
-//     final String title;
-//     final String description;
-//     final String create_at;
-//     final String
-//   }
+}
+
+class Comments {
+  Comments({ required this.id, required this.title, required this.description, required this.createdAt, required this.userId});
+  final String id;
+  final String title;
+  final String description;
+  final String createdAt;
+  final String userId;
+
+  factory Comments.fromJson(Map<String, dynamic> data) {
+    final id = data['id'];
+    final title = data['title'];
+    final description = data['description'];
+    final createdAt = data['createdAt'];
+    final userId = data['user']['username'];
+
+    return Comments(id: id, title: title, description: description, createdAt: createdAt, userId: userId);
+  }
 }

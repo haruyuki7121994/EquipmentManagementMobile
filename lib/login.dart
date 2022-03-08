@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'forgotpass.dart';
 import 'home.dart';
 import 'home_cubit.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -126,7 +125,7 @@ class _LoginPageState extends State<LoginPage>{
                     child: Text("FORGOT PASSWORD?",
                       style: TextStyle(fontSize: 15,color: Colors.blue),),
                     onPressed: () {
-                      Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
+                      //Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
                     },
                   ),
                 ],
@@ -139,7 +138,8 @@ class _LoginPageState extends State<LoginPage>{
   }
   onSignInClicked(String username, password) async{
     String token;
-    String url = "http://192.168.0.103:8080/api/auth/login";
+    String user;
+    String url = "http://192.168.1.9:8080/api/auth/login";
     Map data = {
       'username': username,
       'password': password
@@ -156,6 +156,8 @@ class _LoginPageState extends State<LoginPage>{
       if(jsonResponse != null){
         token = jsonResponse['data']['token'];
         _save(token);
+        user = jsonResponse['data']['id'];
+        _saveUserId(user);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) {
           return BlocProvider(
@@ -196,6 +198,11 @@ class _LoginPageState extends State<LoginPage>{
     final sharedPreferences = await SharedPreferences.getInstance();
     final value = token;
     sharedPreferences.setString('token', value);
+  }
+  _saveUserId(String user) async{
+    final shareUser = await SharedPreferences.getInstance();
+    final value = user;
+    shareUser.setString('userId', value);
   }
   _read() async{
     final sharedPreferences = await SharedPreferences.getInstance();
