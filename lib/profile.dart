@@ -1,6 +1,7 @@
 import 'dart:convert';
+import 'package:appqrcode/changepassword.dart';
 import 'package:http/http.dart' as http;
-import 'package:appqrcode/update.dart';
+import 'package:appqrcode/updateProfile.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -29,7 +30,6 @@ class _ProfileState extends State<Profile> {
       body: SafeArea(
           child: Column(
         children: [
-//for circle avtar image
           _getHeader(),
           SizedBox(
             height: 10,
@@ -38,7 +38,7 @@ class _ProfileState extends State<Profile> {
           SizedBox(
             height: 14,
           ),
-          _heading("Personal Details"),
+          _heading("Profile Details"),
           SizedBox(
             height: 6,
           ),
@@ -59,38 +59,52 @@ class _ProfileState extends State<Profile> {
   }
 
   Widget _getHeader() {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            height: 100,
-            width: 100,
-            decoration: BoxDecoration(
-//borderRadius: BorderRadius.all(Radius.circular(10.0)),
-                shape: BoxShape.circle,
-                image: DecorationImage(
-                    fit: BoxFit.fill, image: AssetImage("images/user.png"))
-// color: Colors.orange[100],
-                ),
+    return Container(
+        padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
+        width: MediaQuery.of(context).size.width / 3,
+        height: MediaQuery.of(context).size.width / 3,
+        decoration: BoxDecoration(
+          border: Border.all(color: Colors.white, width: 5),
+          shape: BoxShape.circle,
+          color: Colors.white,
+          image: DecorationImage(
+            fit: BoxFit.cover,
+            image: AssetImage(
+                "images/user.png"
+            )
           ),
         ),
-      ],
-    );
+        child: Center(
+          child: Padding(
+            padding: EdgeInsets.fromLTRB(70, 40, 0, 0),
+            child: CircleAvatar(
+              backgroundColor: Colors.black,
+              child: IconButton(
+                icon: Icon(
+                  Icons.edit,
+                  color: Colors.white,
+                ),
+                onPressed: () {},
+              ),
+            ),
+          ),
+        ));
   }
 
   Widget _profileName(String username) {
     return Container(
-      width: MediaQuery.of(context).size.width * 0.80, //80% of width,
+      width: MediaQuery.of(context).size.width * 0.90, //80% of width,
       child: Center(
         child: FutureBuilder<Album>(
           future: futureAlbum,
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              return Text(snapshot.data!.username,
+              return Text(
+                snapshot.data!.username,
                 style: TextStyle(
-                    color: Colors.black, fontSize: 24, fontWeight: FontWeight.w800),
+                    color: Colors.black,
+                    fontSize: 24,
+                    fontWeight: FontWeight.w800),
               );
             } else if (snapshot.hasError) {
               return Text('${snapshot.error}');
@@ -166,13 +180,25 @@ class _ProfileState extends State<Profile> {
         elevation: 4,
         child: Column(
           children: [
-//row for each deatails
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: Icon(Icons.admin_panel_settings),
               title: Text("Update Profile"),
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => UpdatePage()));
+              },
+            ),
+            Divider(
+              height: 0.6,
+              color: Colors.black87,
+            ),
+            SizedBox(height: 10,),
+            ListTile(
+              leading: Icon(Icons.password_sharp),
+              title: Text("Change Password"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ChangepasswordPage()));
               },
             ),
             Divider(
@@ -237,6 +263,7 @@ class Album {
   final String email;
   final String phone;
   final String address;
+
 
   const Album({
     required this.username,

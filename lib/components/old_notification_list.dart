@@ -10,7 +10,7 @@ class OldNotificationList extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'Previous Notice',
+            'Notice not seen',
             style: TextStyle(
               fontWeight: FontWeight.bold,
               color: Colors.black,
@@ -21,21 +21,21 @@ class OldNotificationList extends StatelessWidget {
           NotificationItem(
             title: 'S100 scale due date maintenance',
             content: "Complete required maintenance tasks",
-            icon: Icons.mail_outline,
+            icon: Icons.mark_email_unread,
             date: '10th October 2020',
           ),
           SizedBox(height: 20,),
           NotificationItem(
             title: 'L1000 scale need to be calibrated',
             content: "Follow the Operation Manual and calibrate L1000",
-            icon: Icons.add_alert,
+            icon: Icons.mark_email_unread,
             date: '9th October 2020',
           ),
           SizedBox(height: 20,),
           NotificationItem(
             title: 'F200 scale need new spare part',
             content: "Find spare and install into the F200",
-            icon: Icons.notifications_active_outlined,
+            icon: Icons.mark_email_unread,
             date: '8th October 2020',
           ),
         ],
