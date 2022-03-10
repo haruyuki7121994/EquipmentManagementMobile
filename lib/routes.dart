@@ -9,6 +9,6 @@ import 'package:appqrcode/details/EquipmentDetails.dart';
 final Map<String, WidgetBuilder> routes = {
   WelcomePage.routeName: (context) => WelcomePage(),
   //DetailsScreen.routeName: (context) => DetailsScreen(),
-  Comment.routeName: (context) => Comment(),
+  //Comment.routeName: (context) => Comment(),
   //EquipmentDetail.routeName: (context) => EquipmentDetail(),
 };

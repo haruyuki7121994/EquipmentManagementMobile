@@ -56,8 +56,7 @@ class _MyAppState extends State<EquipmentDetail> {
 
   @override
   Widget build(BuildContext context) {
-    Equipment equipment = widget.equipment;
-    print(equipment.id);
+    String qrocde = widget.equipment.qrcode;
     return Scaffold(
       appBar: AppBar(
         title: Text("Detail", style: TextStyle( fontSize: 30, color: Colors.white),),
@@ -144,7 +143,7 @@ class _MyAppState extends State<EquipmentDetail> {
                       LableInfo(header: "Description", name: widget.equipment?.status),
                       SizedBox(height: 10,),
                       DefaultButton(text: "Comment",
-                        press: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Comment(equipment: equipment)))),
+                        press: () => Navigator.push(context, MaterialPageRoute(builder: (context)=> Comment(qrcode: qrocde)))),
 
                     ],
                   ),

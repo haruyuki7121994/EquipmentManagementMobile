@@ -1,37 +1,52 @@
+import 'package:appqrcode/services/CreateCommentService.dart';
 import 'package:comment_box/comment/comment.dart';
 import 'package:flutter/material.dart';
+import 'package:appqrcode/models/Equipment.dart';
+import 'package:appqrcode/services/EquipmentService.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class Comment extends StatefulWidget {
-  static String routeName = "/comment";
+  // static String routeName = "/comment";
+  final String qrcode;
+  Comment({Key? key, required this.qrcode }) : super(key: key);
+  //required this.equipment
   @override
   _CommentState createState() => _CommentState();
 }
 
 class _CommentState extends State<Comment> {
+  Future<Equipment>? _future;
+  @override
+  void initState() {
+    super.initState();
+    _future = getEquipment(widget.qrcode);
+  }
+
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
-  List filedata = [
-    {
-      'name': 'Maintainer3',
-      'pic': 'assets/images/Profile Image.png',
-      'message': 'Done calibrate on 22/1/2022'
-    },
-    {
-      'name': 'Maintainer2',
-      'pic': 'assets/images/Profile Image.png',
-      'message': 'Need to replace part MS-213'
-    },
-    {
-      'name': 'Maintainer2',
-      'pic': 'assets/images/Profile Image.png',
-      'message': 'Check and work fine'
-    },
-    {
-      'name': 'Admin',
-      'pic': 'assets/images/Profile Image.png',
-      'message': 'Create equipment'
-    },
-  ];
+
+  // List filedata = [
+  //   {
+  //     'name': 'Maintainer3',
+  //     'pic': 'assets/images/Profile Image.png',
+  //     'message': 'Done calibrate on 22/1/2022'
+  //   },
+  //   {
+  //     'name': 'Maintainer2',
+  //     'pic': 'assets/images/Profile Image.png',
+  //     'message': 'Need to replace part MS-213'
+  //   },
+  //   {
+  //     'name': 'Maintainer2',
+  //     'pic': 'assets/images/Profile Image.png',
+  //     'message': 'Check and work fine'
+  //   },
+  //   {
+  //     'name': 'Admin',
+  //     'pic': 'assets/images/Profile Image.png',
+  //     'message': 'Create equipment'
+  //   },
+  // ];
 
   Widget commentChild(data) {
     return ListView(
@@ -57,10 +72,10 @@ class _CommentState extends State<Comment> {
                 ),
               ),
               title: Text(
-                data[i]['name'],
+                data[i].userId,
                 style: TextStyle(fontWeight: FontWeight.bold),
               ),
-              subtitle: Text(data[i]['message']),
+              subtitle: Text(data[i].description),
             ),
           )
       ],
@@ -69,41 +84,53 @@ class _CommentState extends State<Comment> {
 
   @override
   Widget build(BuildContext context) {
+    //List<Comments>? comments = widget.equipment.comments;
     return Scaffold(
       appBar: AppBar(
         title: Text("Comment Page"),
         backgroundColor: Colors.blue,
       ),
       body: Container(
-        child: CommentBox(
-          userImage: "assets/images/Profile Image.png",
-          child: commentChild(filedata),
-          labelText: 'Write a comment...',
-          withBorder: false,
-          errorText: 'Comment cannot be blank',
-          sendButtonMethod: () {
-            if (formKey.currentState!.validate()) {
-              print(commentController.text);
-              setState(() {
-                var value = {
-                  'name': 'New User',
-                  'pic':
-                  'assets/images/Profile Image.png',
-                  'message': commentController.text
-                };
-                filedata.insert(0, value);
-              });
-              commentController.clear();
-              FocusScope.of(context).unfocus();
-            } else {
-              print("Not validated");
+        child: FutureBuilder<Equipment>(
+          future: _future,
+          builder: (context, snapshot){
+            if (snapshot.hasData){
+              return CommentBox(
+                userImage: "https://www.pngitem.com/pimgs/m/146-1468479_my-profile-icon-blank-profile-picture-circle-hd.png",
+                child: commentChild(snapshot.data!.comments),
+                labelText: 'Write a comment...',
+                withBorder: false,
+                errorText: 'Comment cannot be blank',
+                sendButtonMethod: () {
+                  if (formKey.currentState!.validate()) {
+                    print(commentController.text);
+                        String title = 'mobile-comment';
+                        String description = commentController.text;
+                        String equipmentId = snapshot.data!.id;
+                        print(equipmentId);
+                      createComment(title, description, equipmentId);
+                      //comments?.insert(0, value);
+                    setState(() {});
+                    commentController.clear();
+                    FocusScope.of(context).unfocus();
+                    //Navigator.pop(context);  // pop current page
+                    //Navigator.pushNamed(context, "Setting");
+                    //return Container();
+                  } else {
+                    print("Not validated");
+                  }
+                },
+                formKey: formKey,
+                commentController: commentController,
+                backgroundColor: Colors.black,
+                textColor: Colors.white,
+                sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
+              );
+            }else if(snapshot.hasError){
+              return Text('$snapshot.error');
             }
-          },
-          formKey: formKey,
-          commentController: commentController,
-          backgroundColor: Colors.black,
-          textColor: Colors.white,
-          sendWidget: Icon(Icons.send_sharp, size: 30, color: Colors.white),
+            return const CircularProgressIndicator();
+          }
         ),
       ),
     );

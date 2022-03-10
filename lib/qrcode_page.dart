@@ -42,13 +42,12 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  //late Equipment equipment;
   Future<Equipment>? _future;
   @override
   void initState(){
     super.initState();
-    //String qrcode = 'equipment-1646593980823-test1';
-
+    //String qrcode = 'equipment-1646640216160-equipment5';
+    //_future = getEquipment(qrcode);
   }
 
   final GlobalKey qrKey = GlobalKey(debugLabel: 'QR');
@@ -65,12 +64,12 @@ class _MyHomePageState extends State<MyHomePage> {
       controller!.pauseCamera();
     } else if (Platform.isIOS) {
       controller!.resumeCamera();
+
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    Equipment eq;
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -82,6 +81,7 @@ class _MyHomePageState extends State<MyHomePage> {
             ),
           ),
           Expanded(child: (result != null) ? Text("${result!.code}") : Text("fail")),
+
           Expanded(
             flex: 1,
             child: Center(
@@ -104,8 +104,8 @@ class _MyHomePageState extends State<MyHomePage> {
                         );
                       }else {
                         print("hasdata");
-                        String? qrcode = result!.code;
-                        _future = getEquipment(qrcode);
+                        //String? qrcode = result!.code;
+
                         Equipment eq = snapshot.data!;
                         print(eq.toString());
                         WidgetsBinding.instance?.addPostFrameCallback((_) {
@@ -150,7 +150,7 @@ class _MyHomePageState extends State<MyHomePage> {
       setState(() {
         result = scanData;
         //Future.delayed(Duration(seconds: 3), () {});
-
+        _future = getEquipment(result!.code);
       });
     });
   }
