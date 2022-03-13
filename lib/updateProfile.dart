@@ -132,7 +132,7 @@ class _UpdatePage extends State<UpdatePage> {
 onSignInClicked(BuildContext context, String phone, address) async{
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
-  String url = "http://192.168.0.103:8080/api/auth/edit/profile";
+  String url = "http://192.168.1.52:8080/api/auth/edit/profile";
   Map data = {
     'address': address,
     'phone': phone

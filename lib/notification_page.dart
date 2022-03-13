@@ -34,7 +34,6 @@ class NotificationPage extends StatelessWidget {
                     [
                       NotificationList(),
                       SizedBox(height: 20,),
-                      OldNotificationList(),
                     ],
                   ),
                 ),
