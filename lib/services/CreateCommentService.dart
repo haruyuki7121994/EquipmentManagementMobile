@@ -10,7 +10,7 @@ createComment(String title, String description, String equipmentId) async{
   final userId = shareUser.getString('type');
   print(userId);
   //http://localhost:8080/api/comments/create
-  String _host = 'http://192.168.1.3:8080/';
+  String _host = 'http://192.168.1.7:8080/';
   String api1 = 'api/comments/create';
   String uri = _host + api1;
   Map data = {

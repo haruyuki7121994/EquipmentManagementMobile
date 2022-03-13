@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:appqrcode/models/Equipment.dart';
 import 'package:appqrcode/services/EquipmentService.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:appqrcode/main_page.dart';
+import 'package:appqrcode/login.dart';
 
 class Comment extends StatefulWidget {
   // static String routeName = "/comment";
@@ -18,7 +20,9 @@ class _CommentState extends State<Comment> {
   Future<Equipment>? _future;
   @override
   void initState() {
+    checkRole(context);
     super.initState();
+
     _future = getEquipment(widget.qrcode);
   }
 
@@ -109,7 +113,7 @@ class _CommentState extends State<Comment> {
                         String equipmentId = snapshot.data!.id;
                         print(equipmentId);
                       createComment(title, description, equipmentId);
-                      //comments?.insert(0, value);
+
                     setState(() {});
                     commentController.clear();
                     FocusScope.of(context).unfocus();
@@ -133,6 +137,35 @@ class _CommentState extends State<Comment> {
           }
         ),
       ),
+    );
+  }
+}
+
+checkRole(BuildContext context)async{
+  final sharedPreferences = await SharedPreferences.getInstance();
+  final role = sharedPreferences.getString('roles');
+
+  if(role == '[ROLE_GUEST]'){
+
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('You do not have this permission'),
+        content: const Text('Please log in with role Maintainer'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())),
+            child: const Text('Login'),
+          ),
+        ],
+      ),
+    );
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainPage())
     );
   }
 }

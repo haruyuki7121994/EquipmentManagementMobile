@@ -1,11 +1,9 @@
-import 'package:appqrcode/models/Product.dart';
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'home_cubit.dart';
 import 'main_page.dart';
 import 'profile.dart';
 import 'qrcode_page.dart';
-import 'history_page.dart';
 import 'notification_page.dart';
 import 'size_config.dart';
 
@@ -48,12 +46,6 @@ class HomePage extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
-                    Icons.history,
-                  ),
-                  label: "",
-                ),
-                BottomNavigationBarItem(
-                  icon: Icon(
                     Icons.notifications,
                   ),
                   label: "",
@@ -81,13 +73,11 @@ class HomePage extends StatelessWidget {
       case 1:
         context.read<HomeCubit>().getQrcode();
         break;
+
       case 2:
-        context.read<HomeCubit>().getHistory();
-        break;
-      case 3:
         context.read<HomeCubit>().getNotification();
         break;
-      case 4:
+      case 3:
         context.read<HomeCubit>().getMore();
         break;
     }
@@ -100,10 +90,8 @@ class HomePage extends StatelessWidget {
       case 1:
         return QrcodePage();
       case 2:
-        return HistoryPage();
-      case 3:
         return NotificationPage();
-      case 4:
+      case 3:
         return Profile();
     }
     return MainPage();

@@ -5,9 +5,8 @@ import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:appqrcode/services/EquipmentService.dart';
-import 'package:appqrcode/details/details_screen.dart';
 import 'details/EquipmentDetails.dart';
-import 'models/Product.dart';
+
 
 class QrcodePage extends StatelessWidget {
   const QrcodePage({Key? key}) : super(key: key);

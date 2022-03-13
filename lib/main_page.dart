@@ -1,728 +1,149 @@
-import 'package:appqrcode/AppColor/colors.dart';
-import "package:flutter/material.dart";
+import 'package:appqrcode/models/Equipment.dart';
+import 'package:appqrcode/services/MaintenanceService.dart';
+import 'package:flutter/material.dart';
+import 'package:appqrcode/models/Maintenance.dart';
+import 'package:appqrcode/services/MaintenanceService.dart';
 
-import 'category_cart.dart';
+import 'DetailMaintenance.dart';
 
-class MainPage extends StatefulWidget {
-  @override
-  _MainPageState createState() => _MainPageState();
-}
-
-class CategoryWidget extends StatelessWidget {
+class MainPage extends StatelessWidget {
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.all(5),
-      height: 200,
-      child: Column(
-        children: [
-          Row(
-            children: [
-              Expanded(child: Text('Categories',
-              textAlign: TextAlign.start,
-              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black))),
-            ],
-          ),
-          Container(
-            height: 120,
-            child: ListView(
-              scrollDirection: Axis.horizontal,
-              children: <Widget>[
-                CategoryCard(
-                    Icon(
-                      Icons.book,
-                      size: 40,
-                    ),
-                    'Book'),
-                CategoryCard(
-                    Icon(
-                      Icons.computer,
-                      size: 40,
-                    ),
-                    'Laptops'),
-                CategoryCard(
-                    Icon(
-                      Icons.videogame_asset,
-                      size: 40,
-                    ),
-                    'Games'),
-                CategoryCard(
-                    Icon(
-                      Icons.videocam,
-                      size: 40,
-                    ),
-                    'Movies'),
-                CategoryCard(
-                    Icon(
-                      Icons.watch,
-                      size: 40,
-                    ),
-                    'Watches'),
-                CategoryCard(
-                    Icon(
-                      Icons.weekend,
-                      size: 40,
-                    ),
-                    'Furniture'),
-              ],
-            ),
-          ),
-          Row(
-            children: [
-              Expanded(child: Text('Products',
-                  textAlign: TextAlign.start,
-                  style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black))),
-            ],
-          ),
-        ],
-      ),
+    return new MaterialApp(
+      title: 'Flutter Demo',
+      theme: new ThemeData(
+          primaryColor: Color.fromRGBO(58, 66, 86, 1.0), fontFamily: 'Raleway'),
+      home: new ListPage(),
+      // home: DetailPage(),
     );
   }
 }
 
-class listBills extends StatelessWidget{
-    @override
-  Widget build(BuildContext context) {
-    return Positioned(
-      top: 5,
-        child: Column(
-          children:[
-            SizedBox(height: 10,),
-            Container(
-              width: MediaQuery.of(context).size.width-20,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(1,1),
-                        blurRadius: 10.0,
-                        spreadRadius: 2
-                    )
-                  ]
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(top: 10, left: 18),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      width: 3,
-                                      color: Colors.grey
-                                  ),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "images/brand1.png"
-                                      )
-                                  )
-                              ),
-
-                            ),
-                            SizedBox(width: 10,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "KenGen Power",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.mainColor,
-                                      fontWeight: FontWeight.w700
-                                  ),
-
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "ID 123456",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.idColor,
-                                      fontWeight: FontWeight.w700
-                                  ),
-
-                                )
-                              ],
-                            ),
-
-                          ],
-                        ),
-                        Text("Date 24th May 2021",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(color: AppColor.green, fontWeight: FontWeight.w700),),
-                        SizedBox(height: 10,),
-
-                      ],
-
-                    ),
-
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              width: 80,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: AppColor.selectBackground
-
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Select",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.selectColor
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              "Entered 3 days",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColor.mainColor
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                          ],
-                        ),
-                        SizedBox(width: 20,),
-                      ],
-                    )
-                  ],
-                ),
-
-              ),
-            ),
-            SizedBox(height: 10,),
-            Container(
-              width: MediaQuery.of(context).size.width-20,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(1,1),
-                        blurRadius: 10.0,
-                        spreadRadius: 2
-                    )
-                  ]
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(top: 10, left: 18),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      width: 3,
-                                      color: Colors.grey
-                                  ),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "images/brand1.png"
-                                      )
-                                  )
-                              ),
-
-                            ),
-                            SizedBox(width: 10,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "KenGen Power",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.mainColor,
-                                      fontWeight: FontWeight.w700
-                                  ),
-
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "ID 123456",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.idColor,
-                                      fontWeight: FontWeight.w700
-                                  ),
-
-                                )
-                              ],
-                            ),
-
-                          ],
-                        ),
-                        Text("Date 24th May 2021",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(color: AppColor.green, fontWeight: FontWeight.w700),),
-                        SizedBox(height: 10,),
-
-                      ],
-
-                    ),
-
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              width: 80,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: AppColor.selectBackground
-
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Select",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.selectColor
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              "Entered 3 days",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColor.mainColor
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                          ],
-                        ),
-                        SizedBox(width: 20,),
-                      ],
-                    )
-                  ],
-                ),
-
-              ),
-            ),
-            SizedBox(height: 10,),
-            Container(
-              width: MediaQuery.of(context).size.width-20,
-              height: 100,
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topRight: Radius.circular(30),
-                    bottomRight: Radius.circular(30),
-                  ),
-                  boxShadow: [
-                    BoxShadow(
-                        color: Colors.grey,
-                        offset: Offset(1,1),
-                        blurRadius: 10.0,
-                        spreadRadius: 2
-                    )
-                  ]
-              ),
-              child: Container(
-                margin: const EdgeInsets.only(top: 10, left: 18),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Container(
-                              height: 60,
-                              width: 60,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
-                                  border: Border.all(
-                                      width: 3,
-                                      color: Colors.grey
-                                  ),
-                                  image: DecorationImage(
-                                      fit: BoxFit.cover,
-                                      image: AssetImage(
-                                          "images/brand1.png"
-                                      )
-                                  )
-                              ),
-
-                            ),
-                            SizedBox(width: 10,),
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "KenGen Power",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.mainColor,
-                                      fontWeight: FontWeight.w700
-                                  ),
-
-                                ),
-                                SizedBox(height: 10),
-                                Text(
-                                  "ID 123456",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.idColor,
-                                      fontWeight: FontWeight.w700
-                                  ),
-
-                                )
-                              ],
-                            ),
-
-                          ],
-                        ),
-                        Text("Date 24th May 2021",
-                          textAlign: TextAlign.start,
-                          style: TextStyle(color: AppColor.green, fontWeight: FontWeight.w700),),
-                        SizedBox(height: 10,),
-
-                      ],
-
-                    ),
-
-                    Row(
-                      children: [
-                        Column(
-                          children: [
-                            Container(
-                              width: 80,
-                              height: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(30),
-                                  color: AppColor.selectBackground
-
-                              ),
-                              child: Center(
-                                child: Text(
-                                  "Select",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: AppColor.selectColor
-                                  ),
-                                ),
-                              ),
-                            ),
-                            Expanded(child: Container()),
-                            Text(
-                              "Entered 3 days",
-                              style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: AppColor.mainColor
-                              ),
-                            ),
-                            SizedBox(height: 10,),
-                          ],
-                        ),
-                        SizedBox(width: 20,),
-                      ],
-                    )
-                  ],
-                ),
-
-              ),
-            ),
-
-            // Container(
-            //   width: MediaQuery.of(context).size.width-20,
-            //   height: 100,
-            //   decoration: BoxDecoration(
-            //       color: Colors.white,
-            //       borderRadius: BorderRadius.only(
-            //         topRight: Radius.circular(30),
-            //         bottomRight: Radius.circular(30),
-            //       ),
-            //       boxShadow: [
-            //         BoxShadow(
-            //             color: Colors.grey,
-            //             offset: Offset(1,1),
-            //             blurRadius: 10.0,
-            //             spreadRadius: 2
-            //         )
-            //       ]
-            //   ),
-            //   child: Container(
-            //     margin: const EdgeInsets.only(top: 10, left: 18),
-            //     child: Row(
-            //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //       children: [
-            //         Column(
-            //           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //           crossAxisAlignment: CrossAxisAlignment.start,
-            //           children: [
-            //             Row(
-            //               children: [
-            //                 Container(
-            //                   height: 60,
-            //                   width: 60,
-            //                   decoration: BoxDecoration(
-            //                       borderRadius: BorderRadius.circular(10),
-            //                       border: Border.all(
-            //                           width: 3,
-            //                           color: Colors.grey
-            //                       ),
-            //                       image: DecorationImage(
-            //                           fit: BoxFit.cover,
-            //                           image: AssetImage(
-            //                               "images/brand1.png"
-            //                           )
-            //                       )
-            //                   ),
-            //
-            //                 ),
-            //                 SizedBox(width: 10,),
-            //                 Column(
-            //                   crossAxisAlignment: CrossAxisAlignment.start,
-            //                   children: [
-            //                     Text(
-            //                       "KenGen Power",
-            //                       style: TextStyle(
-            //                           fontSize: 16,
-            //                           color: AppColor.mainColor,
-            //                           fontWeight: FontWeight.w700
-            //                       ),
-            //
-            //                     ),
-            //                     SizedBox(height: 10),
-            //                     Text(
-            //                       "ID 123456",
-            //                       style: TextStyle(
-            //                           fontSize: 16,
-            //                           color: AppColor.idColor,
-            //                           fontWeight: FontWeight.w700
-            //                       ),
-            //
-            //                     )
-            //                   ],
-            //                 ),
-            //
-            //               ],
-            //             ),
-            //             Text("Date 24th May 2021",
-            //               textAlign: TextAlign.start,
-            //               style: TextStyle(color: AppColor.green, fontWeight: FontWeight.w700),),
-            //             SizedBox(height: 10,),
-            //
-            //           ],
-            //
-            //         ),
-            //
-            //         Row(
-            //           children: [
-            //             Column(
-            //               children: [
-            //                 Container(
-            //                   width: 80,
-            //                   height: 30,
-            //                   decoration: BoxDecoration(
-            //                       borderRadius: BorderRadius.circular(30),
-            //                       color: AppColor.selectBackground
-            //
-            //                   ),
-            //                   child: Center(
-            //                     child: Text(
-            //                       "Select",
-            //                       style: TextStyle(
-            //                           fontSize: 16,
-            //                           color: AppColor.selectColor
-            //                       ),
-            //                     ),
-            //                   ),
-            //                 ),
-            //                 Expanded(child: Container()),
-            //                 Text(
-            //                   "\$1234",
-            //                   style: TextStyle(
-            //                       fontSize: 14,
-            //                       fontWeight: FontWeight.w900,
-            //                       color: AppColor.mainColor
-            //                   ),
-            //                 ),
-            //                 Text(
-            //                   "Entered 3 days",
-            //                   style: TextStyle(
-            //                       fontSize: 14,
-            //                       fontWeight: FontWeight.w700,
-            //                       color: AppColor.mainColor
-            //                   ),
-            //                 ),
-            //                 SizedBox(height: 10,),
-            //               ],
-            //             ),
-            //             SizedBox(width: 20,),
-            //           ],
-            //         )
-            //       ],
-            //     ),
-            //
-            //   ),
-            // )
-          ],
+class ListPage extends StatefulWidget {
+  ListPage({Key? key}) : super(key: key);
 
 
-        ));
-  }
+
+  @override
+  _ListPageState createState() => _ListPageState();
 }
 
+class _ListPageState extends State<ListPage> {
+  late Future<List<Maintenance>> maintenancesList;
+  List<Maintenance>? list;
 
-
-class _MainPageState extends State<MainPage> {
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Stack(
-          children: [
-            Column(
-              children: [
-                Header(),
-                // CategoryWidget(),
-                listBills(),
-              ],
-            ),
-            //Positioned(bottom:0,right:0,left:0,child:BottomNavigation())
-          ],
-        ),
-      ),
-    );
+  void initState() {
+    maintenancesList = getMaintenance();
+    super.initState();
   }
-}
 
-class Header extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.all(1),
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.fill, image: AssetImage("images/background.png")),
-          borderRadius: BorderRadius.circular(10)),
-      padding: EdgeInsets.only(top: 20, left: 5, right: 5),
-      child: Stack(
-        children: [
-          Positioned(
-              bottom: 10,
-              left: 0,
-              right: 0,
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.all(Radius.circular(10)),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black12,
-                      spreadRadius: 1,
-                      blurRadius: 3,
-                    ),
-                  ],
-                ),
-                margin: EdgeInsets.symmetric(horizontal: 10),
-                child: TextField(
-                  minLines: 1,
-                  decoration: InputDecoration(
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10),
-                        borderSide: BorderSide(
-                          width: 0,
-                          style: BorderStyle.none,
-                        )),
-                    prefixIcon: Icon(
-                      Icons.search,
-                    ),
-                    hintText: 'Search by name',
-                    filled: true,
-                    fillColor: Theme.of(context).cardColor,
-                  ),
-                ),
-              )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text("DEVICE MANAGEMENT APPLICATION",
-                  style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white)),
-              SizedBox(height: 10),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+    return SafeArea(
+      child: FutureBuilder<List<Maintenance>>(
+        future: maintenancesList,
+          builder: (context, snapshot){
+          if(snapshot.hasData){
+            print('hasData');
+            list = snapshot.data;
+
+            ListTile makeListTile(Maintenance maintenance) => ListTile(
+              contentPadding:
+              EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+              title: Row(
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text("Hello User",
-                          style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white)),
-                      Text("Wellcome to my app",
-                          style: TextStyle(color: Colors.white))
-                    ],
+                Text(
+                  maintenance.dateMaintenance,
+                  textAlign: TextAlign.left,
+                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                ),
+                  const SizedBox(width: 30,),
+                  Text(
+                    maintenance.user,
+                    textAlign: TextAlign.right,
+                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                   ),
-                  Container(
-                    height: 60,
-                    width: 50,
-                    decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        image: DecorationImage(
-                            image: AssetImage("images/user.png"),
-                            fit: BoxFit.fill)),
-                  )
-                ],
+                ]),
+
+              // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+
+              // subtitle: Row(
+              //   children: <Widget>[
+              //     Expanded(
+              //         flex: 1,
+              //         child: Container(
+              //           // tag: 'hero',
+              //           child: LinearProgressIndicator(
+              //               backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
+              //               value: maintenance.indicatorValue,
+              //               valueColor: AlwaysStoppedAnimation(Colors.green)),
+              //         )),
+              //     Expanded(
+              //       flex: 4,
+              //       child: Padding(
+              //           padding: EdgeInsets.only(left: 10.0),
+              //           child: Text(lesson.level,
+              //               style: TextStyle(color: Colors.white))),
+              //     )
+              //   ],
+              // ),
+              trailing:
+              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+              onTap: () {
+                String id = maintenance.id;
+                print(id);
+                List<Equipment>? eList = maintenance.equipment;
+                print(eList.toString());
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => DetailMaintenance(eList: eList)));
+               },
+            );
+
+            Card makeCard(Maintenance maintenance) => Card(
+              elevation: 8.0,
+              margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
+              child: Container(
+                decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                child: makeListTile(maintenance),
               ),
-              SizedBox(
-                height: 100,
-              )
-            ],
-          ),
-        ],
+            );
+            return Scaffold(
+              backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+              appBar: AppBar(
+                elevation: 0.1,
+                backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+                title: Text('Maintenance Schedule'),
+              ),
+              body: Container(
+                decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
+                child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  shrinkWrap: true,
+                  itemCount: list?.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return makeCard(list![index]);
+                  },
+                ),
+              ),
+            );
+
+
+          }else if(snapshot.hasError){
+            return Text('${snapshot.error}');
+          }
+          return Container();
+          }
+
       ),
     );
+
+
   }
 }
+
+

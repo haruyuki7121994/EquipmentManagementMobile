@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:appqrcode/size_config.dart';
 
+class BaseHost{
+  String _host = 'http://192.168.1.3:8080/';
+}
+
+
 const kPrimaryColor = Color(0xFFFF7643);
 const kPrimaryLightColor = Color(0xFFFFECDF);
 const kPrimaryGradientColor = LinearGradient(

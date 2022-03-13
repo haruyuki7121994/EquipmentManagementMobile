@@ -8,7 +8,7 @@ Future<Equipment> getEquipment(String? qrcode) async {
   final value = sharedPreferences.getString('token');
 
   print(value);
-  String _baseUrl = 'http://192.168.1.3:8080/api/equipments/qrcode/';
+  String _baseUrl = 'http://192.168.1.7:8080/api/equipments/qrcode/';
   String url = _baseUrl + qrcode!;
   final response = await http.get(
     Uri.parse(url),
@@ -19,10 +19,14 @@ Future<Equipment> getEquipment(String? qrcode) async {
       'Authorization': 'Bearer $value'
     },
   );
+  print(response.statusCode);
   if(response.statusCode == 200){
     final responseJson = jsonDecode(response.body);
+    final data = responseJson['data'];
     print(responseJson);
-    return Equipment.fromJson(responseJson);
+    Equipment equipment =  Equipment.fromJson(data);
+    print(equipment);
+    return Equipment.fromJson(data);
   }else{
     throw Exception('Failed');
   }
