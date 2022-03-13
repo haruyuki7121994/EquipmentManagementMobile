@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:appqrcode/login.dart';
 import 'package:appqrcode/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,8 +7,9 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_cubit.dart';
 
-class ChangepasswordPage extends StatefulWidget {
-  const ChangepasswordPage({Key? key}) : super(key: key);
+class NewpasswordPage extends StatefulWidget {
+  final String email;
+  const NewpasswordPage({Key? key, required this.email}) : super(key: key);
 
   @override
   _UpdatePage createState() {
@@ -15,20 +17,26 @@ class ChangepasswordPage extends StatefulWidget {
   }
 }
 
-class _UpdatePage extends State<ChangepasswordPage> {
+class _UpdatePage extends State<NewpasswordPage> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
-
+  final TextEditingController _controller3 = TextEditingController();
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    String email = widget.email;
+  }
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'change Password',
+      title: 'Create a new password',
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
       home: Scaffold(
         appBar: AppBar(
-          title: const Text('Change Password'),
+          title: const Text('Create a new password'),
         ),
         body: Container(
           alignment: Alignment.topCenter,
@@ -39,10 +47,23 @@ class _UpdatePage extends State<ChangepasswordPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Change Password",
+                  "Create a new password",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
-                    fontSize: 40,
+                    fontSize: 30,
+                  ),
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Text(
+                  "Enter Code",
+                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+                ),
+                TextField(
+                  controller: _controller1,
+                  decoration: const InputDecoration(
+                    labelText: 'Enter Code',
                   ),
                 ),
                 SizedBox(
@@ -53,7 +74,7 @@ class _UpdatePage extends State<ChangepasswordPage> {
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                 ),
                 TextField(
-                  controller: _controller1,
+                  controller: _controller2,
                   decoration: const InputDecoration(
                     labelText: 'Enter New Password',
                   ),
@@ -66,7 +87,7 @@ class _UpdatePage extends State<ChangepasswordPage> {
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                 ),
                 TextField(
-                  controller: _controller2,
+                  controller: _controller3,
                   decoration: const InputDecoration(
                     labelText: 'Enter RePassword',
                   ),
@@ -84,7 +105,7 @@ class _UpdatePage extends State<ChangepasswordPage> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(50))),
                       onPressed: () => onSignInClicked(
-                          context, _controller1.text, _controller2.text),
+                          context, _controller1.text, _controller2.text, _controller3.text, widget.email),
                       child: Text(
                         "Save",
                         style: TextStyle(color: Colors.white, fontSize: 16),
@@ -101,11 +122,11 @@ class _UpdatePage extends State<ChangepasswordPage> {
   }
 }
 
-onSignInClicked(BuildContext context, String password, String rePassword) async {
+onSignInClicked(BuildContext context,String code, String newPassword, String rePassword, String email) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
-  String url = "http://192.168.1.52:8080/api/auth/edit/password";
-  Map data = {'password': password, 'rePassword': rePassword};
+  String url = "http://192.168.0.103:8080/api/auth/forgot-password/verify";
+  Map data = {'newPassword': newPassword, 'rePassword': rePassword, 'code' : code, 'email': email};
   var jsonResponse;
   var response = await http.post(Uri.parse(url),
       headers: {
@@ -122,55 +143,30 @@ onSignInClicked(BuildContext context, String password, String rePassword) async 
       print('abc');
       // Navigator.of(context).push();
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Profile()));
+          context, MaterialPageRoute(builder: (context) => LoginPage()));
     }
   } on Exception catch (e) {
     print(e.toString());
   }
 }
 
-_save(String token) async {
-  final sharedPreferences = await SharedPreferences.getInstance();
-  final value = token;
-  sharedPreferences.setString('token', value);
-}
-
-Future<Album> updateAlbum(String password, String rePassword) async {
-  final sharedPreferences = await SharedPreferences.getInstance();
-  final value = sharedPreferences.getString('token');
-  final response = await http.post(
-    Uri.parse('http://192.168.0.103:8080/api/auth/edit/password'),
-    headers: <String, String>{
-      "content-type": "application/json",
-      "accept": "application/json",
-      'Authorization': 'Bearer $value'
-    },
-    body: jsonEncode(
-        <String, String>{'password': password, 'rePassword': rePassword}),
-  );
-  print("album ${response.statusCode}");
-  if (response.statusCode == 200) {
-    final responseJson = jsonDecode(response.body);
-    print(response.statusCode);
-    return Album.fromJson(responseJson);
-  } else {
-    throw Exception('Failed');
-  }
-}
 
 class Album {
-  final String password;
+  final String newPassword;
   final String rePassword;
+  final String code;
 
   const Album({
-    required this.password,
+    required this.newPassword,
     required this.rePassword,
+    required this.code,
   });
 
   factory Album.fromJson(Map<String, dynamic> json) {
     return Album(
-      password: json['data']['password'],
+      newPassword: json['data']['password'],
       rePassword: json['data']['rePassword'],
+      code: json['data']['code'],
     );
   }
 }

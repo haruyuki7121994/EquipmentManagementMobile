@@ -2,17 +2,18 @@ import 'package:flutter/material.dart';
 
 class NotificationItem extends StatelessWidget {
   final String title;
-  final String content;
+  final String description;
   final IconData icon;
-  final String date;
+  final String created_at;
 
-  const NotificationItem({Key? key, required this.title, required this.content, required this.icon, required this.date}) : super(key: key);
+  const NotificationItem({Key? key, required this.title, required this.icon, required this.created_at, required String this.description}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
         Row(
+
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
@@ -42,13 +43,13 @@ class NotificationItem extends StatelessWidget {
                     height: 8,
                   ),
                   Text(
-                    content,
+                    description,
                   ),
                   SizedBox(
                     height: 8,
                   ),
                   Text(
-                    date,
+                    created_at,
                     style: TextStyle(
                       color: Colors.black.withOpacity(0.4),
                       fontWeight: FontWeight.w500,

@@ -8,6 +8,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'login.dart';
 
 class Profile extends StatefulWidget {
+
   static const routeName = "/profile";
 
   @override
@@ -127,6 +128,8 @@ class _ProfileState extends State<Profile> {
     );
   }
 
+
+
   Widget _detailsCard() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -213,7 +216,12 @@ class _ProfileState extends State<Profile> {
 
   Widget logoutButton() {
     return InkWell(
-      onTap: () {
+
+      onTap: () async {
+        final sharedPreferences = await SharedPreferences.getInstance();
+        const value = "";
+        sharedPreferences.setString('token', value);
+
         Navigator.push(
             context, MaterialPageRoute(builder: (context) => LoginPage()));
       },
@@ -244,7 +252,7 @@ Future<Album> fetchAlbum() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
   final response = await http
-      .get(Uri.parse('http://192.168.1.5:8080/api/auth/profile'), headers: {
+      .get(Uri.parse('http://192.168.0.103:8080/api/auth/profile'), headers: {
     "content-type": "application/json",
     "accept": "application/json",
     'Authorization': 'Bearer $value'
