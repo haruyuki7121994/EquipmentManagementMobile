@@ -1,8 +1,10 @@
 import 'package:appqrcode/models/Equipment.dart';
 import 'package:appqrcode/services/MaintenanceService.dart';
+import 'package:appqrcode/top_container.dart';
 import 'package:flutter/material.dart';
 import 'package:appqrcode/models/Maintenance.dart';
 import 'package:appqrcode/services/MaintenanceService.dart';
+import 'package:percent_indicator/circular_percent_indicator.dart';
 
 import 'DetailMaintenance.dart';
 
@@ -13,7 +15,7 @@ class MainPage extends StatelessWidget {
     return new MaterialApp(
       title: 'Flutter Demo',
       theme: new ThemeData(
-          primaryColor: Color.fromRGBO(58, 66, 86, 1.0), fontFamily: 'Raleway'),
+          primaryColor: Colors.yellow, fontFamily: 'Raleway'),
       home: new ListPage(),
       // home: DetailPage(),
     );
@@ -41,7 +43,7 @@ class _ListPageState extends State<ListPage> {
 
   @override
   Widget build(BuildContext context) {
-
+    double width = MediaQuery.of(context).size.width;
     return SafeArea(
       child: FutureBuilder<List<Maintenance>>(
         future: maintenancesList,
@@ -58,40 +60,17 @@ class _ListPageState extends State<ListPage> {
                 Text(
                   maintenance.dateMaintenance,
                   textAlign: TextAlign.left,
-                  style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                  style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                 ),
                   const SizedBox(width: 30,),
                   Text(
                     maintenance.user,
                     textAlign: TextAlign.right,
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                    style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                   ),
                 ]),
-
-              // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
-
-              // subtitle: Row(
-              //   children: <Widget>[
-              //     Expanded(
-              //         flex: 1,
-              //         child: Container(
-              //           // tag: 'hero',
-              //           child: LinearProgressIndicator(
-              //               backgroundColor: Color.fromRGBO(209, 224, 224, 0.2),
-              //               value: maintenance.indicatorValue,
-              //               valueColor: AlwaysStoppedAnimation(Colors.green)),
-              //         )),
-              //     Expanded(
-              //       flex: 4,
-              //       child: Padding(
-              //           padding: EdgeInsets.only(left: 10.0),
-              //           child: Text(lesson.level,
-              //               style: TextStyle(color: Colors.white))),
-              //     )
-              //   ],
-              // ),
               trailing:
-              Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+              Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0),
               onTap: () {
                 String id = maintenance.id;
                 print(id);
@@ -108,31 +87,109 @@ class _ListPageState extends State<ListPage> {
               elevation: 8.0,
               margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
               child: Container(
-                decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+                decoration: BoxDecoration(color: Colors.grey[200]),
                 child: makeListTile(maintenance),
               ),
             );
             return Scaffold(
-              backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
-              appBar: AppBar(
-                elevation: 0.1,
-                backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
-                title: Text('Maintenance Schedule'),
-              ),
-              body: Container(
-                decoration: BoxDecoration(color: Color.fromRGBO(58, 66, 86, 1.0)),
-                child: ListView.builder(
-                  scrollDirection: Axis.vertical,
-                  shrinkWrap: true,
-                  itemCount: list?.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    return makeCard(list![index]);
-                  },
+              body: SafeArea(
+                child: Column(
+                  children: <Widget>[
+                    TopContainer(
+                      height: 200,
+                      width: width,
+                      padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 0, vertical: 20),
+                              child: Row(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                children: <Widget>[
+                                  CircularPercentIndicator(
+                                    radius: 60.0,
+                                    lineWidth: 5.0,
+                                    animation: true,
+                                    percent: 1,
+                                    circularStrokeCap: CircularStrokeCap.round,
+                                    progressColor: Colors.white,
+                                    backgroundColor: Colors.lightBlue,
+                                    center: const CircleAvatar(
+                                      backgroundColor: Colors.blue,
+                                      radius: 50.0,
+                                      backgroundImage: AssetImage(
+                                        'assets/images/bench scale.png',
+                                      ),
+                                    ),
+                                  ),
+                                  Column(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    children: <Widget>[
+                                      Container(
+                                        child: Text(
+                                          'Welcome to',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: 22.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w800,
+                                          ),
+                                        ),
+                                      ),
+                                      Container(
+                                        child: Text(
+                                          'Equipment manager',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                            fontSize: 16.0,
+                                            color: Colors.white,
+                                            fontWeight: FontWeight.w400,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  )
+                                ],
+                              ),
+                            )
+                          ]),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 0.0, vertical: 40),
+                      child: Column(
+                        children:[
+                          const Text("Maintenance Schedule",
+                            style: TextStyle(
+                              fontSize: 22.0,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w800,
+                            ),
+                          ),
+                          Container(
+
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 0.0),
+                            decoration: BoxDecoration(color: Colors.white),
+                            child: ListView.builder(
+                              scrollDirection: Axis.vertical,
+                              shrinkWrap: true,
+                              itemCount: list?.length,
+                              itemBuilder: (BuildContext context, int index) {
+                                return makeCard(list![index]);
+                              },
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ]
                 ),
               ),
             );
-
-
           }else if(snapshot.hasError){
             return Text('${snapshot.error}');
           }

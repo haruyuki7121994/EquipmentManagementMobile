@@ -33,18 +33,18 @@ class _MyAppState extends State<DetailMaintenance> {
         children: [
           Text(
           equipment.name,
-          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
           const SizedBox(width: 10,),
           Text(
             equipment.id ,
-            style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           ),
         ]
       ),
       // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
       trailing:
-      Icon(Icons.keyboard_arrow_right, color: Colors.white, size: 30.0),
+      Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0),
       onTap: () {
         Navigator.push(
             context,
@@ -57,7 +57,7 @@ class _MyAppState extends State<DetailMaintenance> {
       elevation: 8.0,
       margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 6.0),
       child: Container(
-        decoration: BoxDecoration(color: Color.fromRGBO(64, 75, 96, .9)),
+        decoration: BoxDecoration(color: Colors.grey[200]),
         child: makeListTile(equipment),
       ),
     );
@@ -77,12 +77,12 @@ class _MyAppState extends State<DetailMaintenance> {
 
     final topAppBar = AppBar(
       elevation: 0.1,
-      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+      backgroundColor: Colors.blue,
       title: Text('List equipment'),
     );
 
     return Scaffold(
-      backgroundColor: Color.fromRGBO(58, 66, 86, 1.0),
+      backgroundColor: Colors.white,
       appBar: topAppBar,
       body: makeBody,
     );
