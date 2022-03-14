@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_cubit.dart';
+import 'package:appqrcode/host.dart' as globals;
 
 class NewpasswordPage extends StatefulWidget {
   final String email;
@@ -21,6 +22,7 @@ class _UpdatePage extends State<NewpasswordPage> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
+  bool _showPass = false;
   @override
   void initState() {
     // TODO: implement initState
@@ -61,6 +63,7 @@ class _UpdatePage extends State<NewpasswordPage> {
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                 ),
                 TextField(
+                  obscureText: !_showPass,
                   controller: _controller1,
                   decoration: const InputDecoration(
                     labelText: 'Enter Code',
@@ -74,6 +77,7 @@ class _UpdatePage extends State<NewpasswordPage> {
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                 ),
                 TextField(
+                  obscureText: !_showPass,
                   controller: _controller2,
                   decoration: const InputDecoration(
                     labelText: 'Enter New Password',
@@ -90,6 +94,14 @@ class _UpdatePage extends State<NewpasswordPage> {
                   controller: _controller3,
                   decoration: const InputDecoration(
                     labelText: 'Enter RePassword',
+                  ),
+                ),
+                GestureDetector(
+                  onTap: onTogglesShowPass,
+                  child: Text(_showPass ? "HIDE" : "SHOW",style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 14
+                  ),
                   ),
                 ),
                 SizedBox(
@@ -120,12 +132,19 @@ class _UpdatePage extends State<NewpasswordPage> {
       ),
     );
   }
+  void onTogglesShowPass(){
+    setState(() {
+      _showPass = !_showPass;
+    });
+  }
 }
 
 onSignInClicked(BuildContext context,String code, String newPassword, String rePassword, String email) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
-  String url = "http://192.168.0.103:8080/api/auth/forgot-password/verify";
+  String _host = globals.Host();
+  String api = 'api/auth/forgot-password/verify';
+  String url = _host+api;
   Map data = {'newPassword': newPassword, 'rePassword': rePassword, 'code' : code, 'email': email};
   var jsonResponse;
   var response = await http.post(Uri.parse(url),

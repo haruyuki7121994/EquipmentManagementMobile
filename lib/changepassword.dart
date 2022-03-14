@@ -2,9 +2,11 @@ import 'dart:convert';
 import 'package:appqrcode/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_cubit.dart';
+import 'package:appqrcode/host.dart' as globals;
 
 class ChangepasswordPage extends StatefulWidget {
   const ChangepasswordPage({Key? key}) : super(key: key);
@@ -18,6 +20,8 @@ class ChangepasswordPage extends StatefulWidget {
 class _UpdatePage extends State<ChangepasswordPage> {
   final TextEditingController _controller1 = TextEditingController();
   final TextEditingController _controller2 = TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _showPass = false;
 
   @override
   Widget build(BuildContext context) {
@@ -33,29 +37,38 @@ class _UpdatePage extends State<ChangepasswordPage> {
         body: Container(
           alignment: Alignment.topCenter,
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-          child: Container(
+          child: Form(
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
                 Text(
-                  "Change Password",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 40,
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
                   "Enter new Password",
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                 ),
-                TextField(
+                TextFormField(
+                  obscureText: !_showPass,
                   controller: _controller1,
                   decoration: const InputDecoration(
                     labelText: 'Enter New Password',
+                  ),
+                  validator: MultiValidator([
+                    RequiredValidator(errorText: "* Required"),
+                    MinLengthValidator(6,
+                        errorText: "Password should be atleast 6 characters"),
+                    MaxLengthValidator(15,
+                        errorText:
+                        "Password should not be greater than 15 characters")
+                  ]),
+                ),
+
+                GestureDetector(
+                  onTap: onTogglesShowPass,
+                  child: Text(_showPass ? "HIDE" : "SHOW", style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 14
+                  ),
                   ),
                 ),
                 SizedBox(
@@ -65,17 +78,29 @@ class _UpdatePage extends State<ChangepasswordPage> {
                   "Enter Repassword",
                   style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                 ),
-                TextField(
+                TextFormField(
+                  obscureText: !_showPass,
                   controller: _controller2,
                   decoration: const InputDecoration(
                     labelText: 'Enter RePassword',
+                  ),
+                  validator: (val) => MatchValidator(errorText: 'passwords do not match').validateMatch(val!, _controller1.text),
+
+                ),
+                GestureDetector(
+                  onTap: onTogglesShowPass,
+                  child: Text(_showPass ? "HIDE" : "SHOW", style: TextStyle(
+                      color: Colors.blue,
+                      fontSize: 14
+                  ),
                   ),
                 ),
                 SizedBox(
                   height: 40,
                 ),
+
                 Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                  padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: SizedBox(
                     width: double.infinity,
                     height: 40,
@@ -83,8 +108,14 @@ class _UpdatePage extends State<ChangepasswordPage> {
                       color: Colors.blue,
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(50))),
-                      onPressed: () => onSignInClicked(
-                          context, _controller1.text, _controller2.text),
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          ElevatedButton(
+                              context,
+                              _controller1.text,_controller2.text
+                          );
+                        }
+                      },
                       child: Text(
                         "Save",
                         style: TextStyle(color: Colors.white, fontSize: 16),
@@ -99,12 +130,19 @@ class _UpdatePage extends State<ChangepasswordPage> {
       ),
     );
   }
+
+  void onTogglesShowPass() {
+    setState(() {
+      _showPass = !_showPass;
+    });
+  }
 }
 
-onSignInClicked(BuildContext context, String password, String rePassword) async {
+
+ElevatedButton(BuildContext context, String password, String rePassword) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
-  String url = "http://192.168.1.52:8080/api/auth/edit/password";
+  String url = "http://192.168.0.103:8080/api/auth/edit/password";
   Map data = {'password': password, 'rePassword': rePassword};
   var jsonResponse;
   var response = await http.post(Uri.parse(url),
@@ -138,8 +176,11 @@ _save(String token) async {
 Future<Album> updateAlbum(String password, String rePassword) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
+  String _host = globals.Host();
+  String api = 'api/auth/edit/password';
+  String url = _host+api;
   final response = await http.post(
-    Uri.parse('http://192.168.0.103:8080/api/auth/edit/password'),
+    Uri.parse(url),
     headers: <String, String>{
       "content-type": "application/json",
       "accept": "application/json",

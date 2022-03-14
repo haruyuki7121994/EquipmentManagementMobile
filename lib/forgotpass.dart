@@ -4,6 +4,7 @@ import 'package:appqrcode/newpassword.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import 'package:appqrcode/host.dart' as globals;
 
 
 
@@ -70,7 +71,9 @@ onSignInClicked(BuildContext context, String email) async{
   print("hello");
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
-  String url = "http://192.168.0.103:8080/api/auth/forgot-password/send";
+  String _host = globals.Host();
+  String api = 'api/auth/forgot-password/send';
+  String url = _host+api;
   Map data = {
     'email': email,
 

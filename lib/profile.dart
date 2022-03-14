@@ -1,14 +1,15 @@
 import 'dart:convert';
 import 'package:appqrcode/changepassword.dart';
+import 'package:appqrcode/updateAddress.dart';
 import 'package:http/http.dart' as http;
-import 'package:appqrcode/updateProfile.dart';
+import 'package:appqrcode/updatePhone.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:appqrcode/host.dart' as globals;
 
 import 'login.dart';
 
 class Profile extends StatefulWidget {
-
   static const routeName = "/profile";
 
   @override
@@ -69,11 +70,7 @@ class _ProfileState extends State<Profile> {
           shape: BoxShape.circle,
           color: Colors.white,
           image: DecorationImage(
-            fit: BoxFit.cover,
-            image: AssetImage(
-                "images/user.png"
-            )
-          ),
+              fit: BoxFit.cover, image: AssetImage("images/user.png")),
         ),
         child: Center(
           child: Padding(
@@ -128,8 +125,6 @@ class _ProfileState extends State<Profile> {
     );
   }
 
-
-
   Widget _detailsCard() {
     return Padding(
       padding: const EdgeInsets.all(8.0),
@@ -139,32 +134,174 @@ class _ProfileState extends State<Profile> {
             future: futureAlbum,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Card(
-                  child: Column(
-                    children: [
-                      //row for each deatails
-                      ListTile(
-                        leading: Icon(Icons.email),
-                        title: Text(snapshot.data!.email),
-                      ),
-                      Divider(
-                        height: 0.6,
-                        color: Colors.black87,
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.phone),
-                        title: Text(snapshot.data!.phone),
-                      ),
-                      Divider(
-                        height: 0.6,
-                        color: Colors.black87,
-                      ),
-                      ListTile(
-                        leading: Icon(Icons.location_on),
-                        title: Text(snapshot.data!.address),
-                      )
-                    ],
-                  ),
+                // return Card(
+                //   child: Column(
+                //     children: [
+                //       ListTile(
+                //         leading: Icon(Icons.email),
+                //         title: Text(snapshot.data!.email),
+                //       ),
+                //       Divider(
+                //         height: 0.6,
+                //         color: Colors.black87,
+                //       ),
+                //       ListTile(
+                //         leading: Icon(Icons.phone),
+                //         title: Text(snapshot.data!.phone),
+                //       ),
+                //       Divider(
+                //         height: 0.6,
+                //         color: Colors.black87,
+                //       ),
+                //       ListTile(
+                //         leading: Icon(Icons.location_on),
+                //         title: Text(snapshot.data!.address),
+                //         onTap:() => Navigator.push(context, MaterialPageRoute(builder: (context) => UpdatePage(address: '', phone: '  ',)))
+                //       )
+                //     ],
+                //   ),
+                // );
+                return Column(
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 60.0,
+                              height: 60.0,
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(Icons.email),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: Text(
+                                snapshot.data!.email,
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      height: 6,
+                      color: Colors.black87,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 60.0,
+                              height: 60.0,
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(Icons.phone),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: Text(
+                                snapshot.data!.phone,
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.black54,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UpdatePhonePage(
+                                          address: snapshot.data!.address,
+                                        )));
+                          },
+                        ),
+                      ],
+                    ),
+                    Divider(
+                      height: 6,
+                      color: Colors.black87,
+                    ),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Row(
+                          children: [
+                            Container(
+                              width: 60.0,
+                              height: 60.0,
+                              child: Container(
+                                child: Column(
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(Icons.location_on),
+                                    )
+                                  ],
+                                ),
+                              ),
+                            ),
+                            Container(
+                              margin: EdgeInsets.only(left: 20),
+                              child: Text(
+                                snapshot.data!.address,
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                ),
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        IconButton(
+                          icon: Icon(
+                            Icons.edit,
+                            color: Colors.black54,
+                          ),
+                          onPressed: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => UpdateAddressPage(
+                                          phone: snapshot.data!.phone,
+                                        )));
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
                 );
               } else if (snapshot.hasError) {
                 return Text('${snapshot.error}');
@@ -173,7 +310,6 @@ class _ProfileState extends State<Profile> {
             }),
       ),
     );
-//
   }
 
   Widget _settingsCard() {
@@ -183,25 +319,17 @@ class _ProfileState extends State<Profile> {
         elevation: 4,
         child: Column(
           children: [
-            ListTile(
-              leading: Icon(Icons.admin_panel_settings),
-              title: Text("Update Profile"),
-              onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => UpdatePage()));
-              },
+            SizedBox(
+              height: 10,
             ),
-            Divider(
-              height: 0.6,
-              color: Colors.black87,
-            ),
-            SizedBox(height: 10,),
             ListTile(
               leading: Icon(Icons.password_sharp),
               title: Text("Change Password"),
               onTap: () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => ChangepasswordPage()));
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => ChangepasswordPage()));
               },
             ),
             Divider(
@@ -216,7 +344,6 @@ class _ProfileState extends State<Profile> {
 
   Widget logoutButton() {
     return InkWell(
-
       onTap: () async {
         final sharedPreferences = await SharedPreferences.getInstance();
         const value = "";
@@ -251,8 +378,12 @@ class _ProfileState extends State<Profile> {
 Future<Album> fetchAlbum() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
+  String _host = globals.Host();
+  String api = 'api/auth/profile';
+  String url = _host+api;
   final response = await http
-      .get(Uri.parse('http://192.168.0.103:8080/api/auth/profile'), headers: {
+      .get(Uri.parse(url),
+      headers: {
     "content-type": "application/json",
     "accept": "application/json",
     'Authorization': 'Bearer $value'
@@ -271,7 +402,6 @@ class Album {
   final String email;
   final String phone;
   final String address;
-
 
   const Album({
     required this.username,

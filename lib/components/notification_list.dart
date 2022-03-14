@@ -4,6 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:appqrcode/components/notification_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:appqrcode/host.dart' as globals;
 
 import '../login.dart';
 import '../main_page.dart';
@@ -64,8 +65,7 @@ class _NotificationState  extends State<NotificationList> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+    return Container(
       child: Card(
         child: FutureBuilder<List<Album>>(
             future: futureAlbum,
@@ -76,7 +76,7 @@ class _NotificationState  extends State<NotificationList> {
                 ListTile makeListTile(Album album) => ListTile(
                   subtitle: Column(
                         children:<Widget> [
-                          SizedBox(height: 20,),
+                          SizedBox(height: 30,),
                           NotificationItem(
                             title: album!.title,
                             description: album!.description,
@@ -119,8 +119,14 @@ class _NotificationState  extends State<NotificationList> {
 Future <List<Album>> fetchAlbum() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
+  print(value);
+  final shareUsername = await SharedPreferences.getInstance();
+  final username = shareUsername.getString('username');
+  String _host = globals.Host();
+  String api = 'api/notifications/all?username=';
+  String url = _host+api+username!;
   final response = await http
-      .get(Uri.parse('http://192.168.0.103:8080/api/notifications/all?username=maintainer1'), headers: {
+      .get(Uri.parse(url), headers: {
     "content-type": "application/json",
     "accept": "application/json",
     'Authorization': 'Bearer $value'

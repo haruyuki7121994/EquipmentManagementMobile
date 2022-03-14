@@ -17,7 +17,7 @@ class NotificationItem extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              width: 30,
+              width: 5,
               margin: const EdgeInsets.only(right: 10),
               child: Icon(icon),
             ),
