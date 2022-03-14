@@ -1,4 +1,5 @@
 import 'package:appqrcode/host.dart' as globals;
+import 'package:appqrcode/signup.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -99,6 +100,7 @@ class _LoginPageState extends State<LoginPage>{
                     ),
                     ),
                   ),
+
                 ],
               ),
             ),
@@ -128,6 +130,28 @@ class _LoginPageState extends State<LoginPage>{
                     onPressed: () {
                       Navigator.push(context, MaterialPageRoute(builder: (context) => ForgotPassword()));
                     },
+                  ),
+                ],
+              ),
+            ),
+            Padding(
+              padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Don’t have an account? ",
+                    style: TextStyle(fontSize: 15,
+                        color: Colors.black),
+                  ),
+                  GestureDetector(
+                    onTap: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SignupPage())),
+                    child: Text(
+                      "Sign Up",
+                      style: TextStyle(
+                          fontSize: 15,
+                          color: Colors.blue),
+                    ),
                   ),
                 ],
               ),
