@@ -191,7 +191,70 @@ class _ListPageState extends State<ListPage> {
               ),
             );
           }else if(snapshot.hasError){
-            return Text('${snapshot.error}');
+            return Scaffold(
+              body: TopContainer(
+                height: 200,
+                width: width,
+                padding: EdgeInsets.symmetric(horizontal: 30.0, vertical: 20),
+                child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0, vertical: 20),
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                          children: <Widget>[
+                            CircularPercentIndicator(
+                              radius: 60.0,
+                              lineWidth: 5.0,
+                              animation: true,
+                              percent: 1,
+                              circularStrokeCap: CircularStrokeCap.round,
+                              progressColor: Colors.white,
+                              backgroundColor: Colors.lightBlue,
+                              center: const CircleAvatar(
+                                backgroundColor: Colors.blue,
+                                radius: 50.0,
+                                backgroundImage: AssetImage(
+                                  'assets/images/bench scale.png',
+                                ),
+                              ),
+                            ),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Container(
+                                  child: Text(
+                                    'Welcome to',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 22.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                ),
+                                Container(
+                                  child: Text(
+                                    'Equipment manager',
+                                    textAlign: TextAlign.start,
+                                    style: TextStyle(
+                                      fontSize: 16.0,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            )
+                          ],
+                        ),
+                      )
+                    ]),
+              ),
+            );
           }
           return Container();
           }

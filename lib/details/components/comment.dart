@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:appqrcode/main_page.dart';
 import 'package:appqrcode/login.dart';
 
+
 class Comment extends StatefulWidget {
   // static String routeName = "/comment";
   final String qrcode;
@@ -18,39 +19,19 @@ class Comment extends StatefulWidget {
 
 class _CommentState extends State<Comment> {
   Future<Equipment>? _future;
+
+  get qrocde => widget.qrcode;
+
+
   @override
   void initState() {
     checkRole(context);
     super.initState();
-
     _future = getEquipment(widget.qrcode);
   }
 
   final formKey = GlobalKey<FormState>();
   final TextEditingController commentController = TextEditingController();
-
-  // List filedata = [
-  //   {
-  //     'name': 'Maintainer3',
-  //     'pic': 'assets/images/Profile Image.png',
-  //     'message': 'Done calibrate on 22/1/2022'
-  //   },
-  //   {
-  //     'name': 'Maintainer2',
-  //     'pic': 'assets/images/Profile Image.png',
-  //     'message': 'Need to replace part MS-213'
-  //   },
-  //   {
-  //     'name': 'Maintainer2',
-  //     'pic': 'assets/images/Profile Image.png',
-  //     'message': 'Check and work fine'
-  //   },
-  //   {
-  //     'name': 'Admin',
-  //     'pic': 'assets/images/Profile Image.png',
-  //     'message': 'Create equipment'
-  //   },
-  // ];
 
   Widget commentChild(data) {
     return ListView(
@@ -88,6 +69,7 @@ class _CommentState extends State<Comment> {
 
   @override
   Widget build(BuildContext context) {
+    int refresh =1;
     //List<Comments>? comments = widget.equipment.comments;
     return Scaffold(
       appBar: AppBar(
@@ -108,17 +90,19 @@ class _CommentState extends State<Comment> {
                 sendButtonMethod: () {
                   if (formKey.currentState!.validate()) {
                     print(commentController.text);
-                        String title = 'mobile-comment';
-                        String description = commentController.text;
-                        String equipmentId = snapshot.data!.id;
-                        print(equipmentId);
-                      createComment(title, description, equipmentId);
 
-                    setState(() {});
+
+                    setState(() {
+                      String title = 'mobile-comment';
+                      String description = commentController.text;
+                      String equipmentId = snapshot.data!.id;
+                      print(equipmentId);
+                      createComment(title, description, equipmentId);
+                    });
                     commentController.clear();
                     FocusScope.of(context).unfocus();
-                    //Navigator.pop(context);  // pop current page
-                    //Navigator.pushNamed(context, "Setting");
+                    Navigator.pop(context);  // pop current page
+                    Navigator.push(context, MaterialPageRoute(builder: (context)=> Comment(qrcode: qrocde)));
                     //return Container();
                   } else {
                     print("Not validated");

@@ -2,14 +2,16 @@ import 'package:appqrcode/models/Equipment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:appqrcode/host.dart' as globals;
 
 Future<Equipment> getEquipment(String? qrcode) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
 
   print(value);
-  String _baseUrl = 'http://192.168.1.7:8080/api/equipments/qrcode/';
-  String url = _baseUrl + qrcode!;
+  String _host = globals.Host();
+  String api = "api/equipments/qrcode/";
+  String url = _host+api+qrcode!;
   final response = await http.get(
     Uri.parse(url),
     // Send authorization headers to the backend.

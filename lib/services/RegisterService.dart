@@ -1,9 +1,9 @@
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:appqrcode/constants.dart' as globals;
+import 'package:appqrcode/host.dart' as globals;
 
 createComment(String username, String email, String password, String phone, String address, List<String> role, bool active) async{
-  String _host = 'http://192.168.1.3:8080/';
+  String _host = globals.Host();
   String api = 'api/auth/register';
   String uri = _host + api;
   Map data = {

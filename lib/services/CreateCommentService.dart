@@ -2,6 +2,7 @@ import 'package:appqrcode/models/Equipment.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:appqrcode/host.dart' as globals;
 
 createComment(String title, String description, String equipmentId) async{
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -9,8 +10,8 @@ createComment(String title, String description, String equipmentId) async{
   final shareUser = await SharedPreferences.getInstance();
   final userId = shareUser.getString('type');
   print(userId);
+  String _host = globals.Host();
   //http://localhost:8080/api/comments/create
-  String _host = 'http://192.168.1.7:8080/';
   String api1 = 'api/comments/create';
   String uri = _host + api1;
   Map data = {

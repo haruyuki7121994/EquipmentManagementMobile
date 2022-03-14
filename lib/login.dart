@@ -1,4 +1,4 @@
-
+import 'package:appqrcode/host.dart' as globals;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
@@ -139,8 +139,10 @@ class _LoginPageState extends State<LoginPage>{
   }
   onSignInClicked(String username, password) async{
     String token;
-    String user;
-    String url = "http://192.168.0.103:8080/api/auth/login";
+    String userId;
+    String _host = globals.Host();
+    String api = "api/auth/login";
+    String url = _host + api;
     Map data = {
       'username': username,
       'password': password
@@ -157,8 +159,10 @@ class _LoginPageState extends State<LoginPage>{
       if(jsonResponse != null){
         token = jsonResponse['data']['token'];
         _save(token);
-        user = jsonResponse['data']['id'];
-        _saveUserId(user);
+        userId = jsonResponse['data']['id'];
+        _saveUserId(userId);
+        username = jsonResponse['data']['username'];
+        _saveUsename(username);
         Navigator.push(
             context, MaterialPageRoute(builder: (context) {
           return BlocProvider(
@@ -200,10 +204,15 @@ class _LoginPageState extends State<LoginPage>{
     final value = token;
     sharedPreferences.setString('token', value);
   }
-  _saveUserId(String user) async{
+  _saveUserId(String userId) async{
     final shareUser = await SharedPreferences.getInstance();
-    final value = user;
+    final value = userId;
     shareUser.setString('userId', value);
+  }
+  _saveUsename(String username) async{
+    final shareUsername = await SharedPreferences.getInstance();
+    final value = username;
+    shareUsername.setString('username', value);
   }
   _read() async{
     final sharedPreferences = await SharedPreferences.getInstance();

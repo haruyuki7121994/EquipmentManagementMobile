@@ -2,15 +2,18 @@ import 'package:appqrcode/models/Maintenance.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
+import 'package:appqrcode/host.dart' as globals;
 
 Future <List<Maintenance>> getMaintenance() async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
-
+  final sharedUsername = await SharedPreferences.getInstance();
+  final username = sharedUsername.getString('username');
   print(value);
-  String _baseUrl = 'http://192.168.1.7:8080/api';
-  String api = '/maintenances/all?size=100&page=0&orderBy=dateMaintenance-asc';
-  String url = _baseUrl + api;
+  String _host = globals.Host();
+  //String uri = 'api/maintenances/all?size=100&page=0&orderBy=dateMaintenance-asc&username=maintainer2';
+  String api = 'api/maintenances/all?size=100&page=0&orderBy=dateMaintenance-asc&username=';
+  String url = _host+api+username!;
   final response = await http.get(
     Uri.parse(url),
     // Send authorization headers to the backend.
