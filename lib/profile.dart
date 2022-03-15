@@ -54,7 +54,7 @@ class _ProfileState extends State<Profile> {
           ),
           _settingsCard(),
           Spacer(),
-          logoutButton()
+           logoutButton()
         ],
       )),
     );
@@ -72,21 +72,22 @@ class _ProfileState extends State<Profile> {
           image: DecorationImage(
               fit: BoxFit.cover, image: AssetImage("images/user.png")),
         ),
-        child: Center(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(70, 40, 0, 0),
-            child: CircleAvatar(
-              backgroundColor: Colors.black,
-              child: IconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: Colors.white,
-                ),
-                onPressed: () {},
-              ),
-            ),
-          ),
-        ));
+        // child: Center(
+        //   child: Padding(
+        //     padding: EdgeInsets.fromLTRB(70, 40, 0, 0),
+        //     child: CircleAvatar(
+        //       backgroundColor: Colors.black,
+        //       child: IconButton(
+        //         icon: Icon(
+        //           Icons.edit,
+        //           color: Colors.white,
+        //         ),
+        //         onPressed: () {},
+        //       ),
+        //     ),
+        //   ),
+        // )
+    );
   }
 
   Widget _profileName(String username) {
@@ -175,18 +176,19 @@ class _ProfileState extends State<Profile> {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.email),
+                                      leading: Icon(Icons.email ,color: Colors.redAccent,),
                                     )
                                   ],
                                 ),
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 20),
+                              margin: EdgeInsets.only(left: 0),
                               child: Text(
                                 snapshot.data!.email,
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 12.0,
+                                  fontWeight: FontWeight.bold
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -214,18 +216,19 @@ class _ProfileState extends State<Profile> {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.phone),
+                                      leading: Icon(Icons.phone, color: Colors.green, ),
                                     )
                                   ],
                                 ),
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 20),
+                              margin: EdgeInsets.only(left: 0),
                               child: Text(
                                 snapshot.data!.phone,
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 12.0,
+                                    fontWeight: FontWeight.bold
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -267,18 +270,19 @@ class _ProfileState extends State<Profile> {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.location_on),
+                                      leading: Icon(Icons.location_on, color: Colors.blue,),
                                     )
                                   ],
                                 ),
                               ),
                             ),
                             Container(
-                              margin: EdgeInsets.only(left: 20),
+                              margin: EdgeInsets.only(left: 0),
                               child: Text(
                                 snapshot.data!.address,
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 12.0,
+                                    fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -323,7 +327,7 @@ class _ProfileState extends State<Profile> {
               height: 10,
             ),
             ListTile(
-              leading: Icon(Icons.password_sharp),
+              leading: Icon(Icons.password_sharp, color: Colors.black,),
               title: Text("Change Password"),
               onTap: () {
                 Navigator.push(

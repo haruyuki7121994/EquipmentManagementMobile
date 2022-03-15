@@ -142,7 +142,9 @@ class _UpdatePage extends State<ChangepasswordPage> {
 ElevatedButton(BuildContext context, String password, String rePassword) async {
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
-  String url = "http://192.168.0.103:8080/api/auth/edit/password";
+  String _host = globals.Host();
+  String api = 'api/auth/edit/password';
+  String url = _host+api;
   Map data = {'password': password, 'rePassword': rePassword};
   var jsonResponse;
   var response = await http.post(Uri.parse(url),

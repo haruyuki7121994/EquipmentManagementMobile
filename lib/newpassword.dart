@@ -3,6 +3,7 @@ import 'package:appqrcode/login.dart';
 import 'package:appqrcode/profile.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:form_field_validator/form_field_validator.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'home_cubit.dart';
@@ -23,6 +24,7 @@ class _UpdatePage extends State<NewpasswordPage> {
   final TextEditingController _controller2 = TextEditingController();
   final TextEditingController _controller3 = TextEditingController();
   bool _showPass = false;
+  final _formKey = GlobalKey<FormState>();
   @override
   void initState() {
     // TODO: implement initState
@@ -43,90 +45,142 @@ class _UpdatePage extends State<NewpasswordPage> {
         body: Container(
           alignment: Alignment.topCenter,
           padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-          child: Container(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                Text(
-                  "Create a new password",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 30,
-                  ),
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  "Enter Code",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-                ),
-                TextField(
-                  obscureText: !_showPass,
-                  controller: _controller1,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter Code',
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  "Enter new Password",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-                ),
-                TextField(
-                  obscureText: !_showPass,
-                  controller: _controller2,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter New Password',
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  "Enter Repassword",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-                ),
-                TextField(
-                  controller: _controller3,
-                  decoration: const InputDecoration(
-                    labelText: 'Enter RePassword',
-                  ),
-                ),
-                GestureDetector(
-                  onTap: onTogglesShowPass,
-                  child: Text(_showPass ? "HIDE" : "SHOW",style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 14
-                  ),
-                  ),
-                ),
-                SizedBox(
-                  height: 40,
-                ),
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
-                  child: SizedBox(
-                    width: double.infinity,
-                    height: 40,
-                    child: RaisedButton(
-                      color: Colors.blue,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(50))),
-                      onPressed: () => onSignInClicked(
-                          context, _controller1.text, _controller2.text, _controller3.text, widget.email),
-                      child: Text(
-                        "Save",
-                        style: TextStyle(color: Colors.white, fontSize: 16),
+          child: ListView(
+            children: <Widget>[
+              Form(
+                key: _formKey,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Text(
+                      "Enter Code",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+                    ),
+                    TextFormField(
+                      obscureText: !_showPass,
+                      controller: _controller1,
+                      decoration: const InputDecoration(
+                        labelText: 'Enter Code',
+                      ),
+                      validator: (controller) {
+                        if (controller == null || controller.isEmpty) {
+                          return 'Please enter Code ';
+                        }
+                        return null;
+                      },
+                    ),
+                    GestureDetector(
+                      onTap: onTogglesShowPass,
+                      child: Text(_showPass ? "HIDE" : "SHOW",style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 10
+                      ),
                       ),
                     ),
-                  ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Enter new Password",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+                    ),
+                    TextFormField(
+                      obscureText: !_showPass,
+                      controller: _controller2,
+                      decoration: const InputDecoration(
+                        labelText: 'Enter New Password',
+                      ),
+                      validator: MultiValidator([
+                        RequiredValidator(errorText: "* Required"),
+                        MinLengthValidator(6,
+                            errorText: "Password should be atleast 6 characters"),
+                        MaxLengthValidator(15,
+                            errorText:
+                            "Password should not be greater than 15 characters")
+                      ]),
+                    ),
+                    GestureDetector(
+                      onTap: onTogglesShowPass,
+                      child: Text(_showPass ? "HIDE" : "SHOW",style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 10
+                      ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    Text(
+                      "Enter Repassword",
+                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+                    ),
+                    TextFormField(
+                      obscureText: !_showPass,
+                      controller: _controller3,
+                      decoration: const InputDecoration(
+                        labelText: 'Enter RePassword',
+                      ),
+                      validator: (val) => MatchValidator(errorText: 'passwords do not match').validateMatch(val!, _controller2.text),
+                    ),
+                    GestureDetector(
+                      onTap: onTogglesShowPass,
+                      child: Text(_showPass ? "HIDE" : "SHOW",style: TextStyle(
+                          color: Colors.blue,
+                          fontSize: 10
+                      ),
+                      ),
+                    ),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    // Padding(
+                    //   padding: const EdgeInsets.fromLTRB(0, 0, 0, 20),
+                    //   child: SizedBox(
+                    //     width: double.infinity,
+                    //     height: 40,
+                    //     child: RaisedButton(
+                    //       color: Colors.blue,
+                    //       shape: RoundedRectangleBorder(
+                    //           borderRadius: BorderRadius.all(Radius.circular(50))),
+                    //       onPressed: () => onSignInClicked(
+                    //           context, _controller1.text, _controller2.text, _controller3.text, widget.email),
+                    //       child: Text(
+                    //         "Save",
+                    //         style: TextStyle(color: Colors.white, fontSize: 16),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: SizedBox(
+                        width: double.infinity,
+                        height: 40,
+                        child: RaisedButton(
+                          color: Colors.blue,
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.all(Radius.circular(50))),
+                          onPressed: () {
+                            if (_formKey.currentState!.validate()) {
+                              onSignInClicked(
+                                  context,
+                                  _controller1.text,_controller2.text,_controller3.text,widget.email,
+                              );
+                            }
+                          },
+                          child: Text(
+                            "Save",
+                            style: TextStyle(color: Colors.white, fontSize: 16),
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              )
+            ],
+
           ),
         ),
       ),

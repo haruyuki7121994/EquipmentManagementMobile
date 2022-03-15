@@ -1,9 +1,12 @@
 import 'dart:convert';
 import 'package:appqrcode/profile.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:appqrcode/host.dart' as globals;
+
+import 'home_cubit.dart';
 
 class UpdateAddressPage extends StatefulWidget {
   final String phone;
@@ -56,7 +59,7 @@ class _UpdateAddressPage extends State<UpdateAddressPage> {
                 TextFormField(
                   controller: _controller2,
                   decoration: const InputDecoration(
-                    labelText: 'Enter Address',
+                    labelText: 'Enter Address ',
                   ),
                   validator: (controller) {
                     if (controller == null || controller.isEmpty) {
@@ -119,7 +122,12 @@ ElevatedButton(BuildContext context, String address, String phone) async {
       print('abc');
       // Navigator.of(context).push();
       Navigator.push(
-          context, MaterialPageRoute(builder: (context) => Profile()));
+          context, MaterialPageRoute(builder: (context) {
+        return BlocProvider(
+          create: (_) => HomeCubit(),
+          child: Profile(),
+        );
+      }));
     }
   } on Exception catch (e) {
     print(e.toString());

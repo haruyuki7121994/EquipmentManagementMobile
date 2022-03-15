@@ -13,21 +13,30 @@ class NotificationItem extends StatelessWidget {
     return Column(
       children: [
         Row(
-
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Container(
-              width: 5,
-              margin: const EdgeInsets.only(right: 10),
+              width: 10,
+              margin: EdgeInsets.fromLTRB(0, 0, 30, 0),
               child: Icon(icon),
             ),
-            Text(
-              title,
-              style: TextStyle(
-                fontWeight: FontWeight.bold,
-                fontSize: 16,
-              ),
-            ),
+            Expanded(
+
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    overflow: TextOverflow.visible,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 16,
+                  ),
+                ),
+              ],
+            )
+            )
           ],
         ),
         Row(

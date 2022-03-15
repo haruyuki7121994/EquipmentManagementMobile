@@ -9,8 +9,8 @@ class NotificationAppBar extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Icon(
-            Icons.notifications,
-            color: Colors.black,
+            Icons.notifications_active,
+            color: Colors.yellow,
             size: 30,
           ),
           SizedBox(width: 10),
