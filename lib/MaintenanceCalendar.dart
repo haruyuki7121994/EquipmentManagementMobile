@@ -1,9 +1,12 @@
 import 'package:appqrcode/services/FilterMaintenanceService.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import 'FilterJobByDate.dart';
+import 'login.dart';
+import 'main_page.dart';
 
 class MaintenanceCalendar extends StatelessWidget {
   @override
@@ -31,6 +34,7 @@ class SelectedDateRange extends State<ListPage> {
 
   @override
   void initState() {
+    checkRole(context);
     final DateTime today = DateTime.now();
     _startDate = DateFormat('yyyy-MM-dd').format(today).toString();
     print(_startDate);
@@ -76,8 +80,8 @@ class SelectedDateRange extends State<ListPage> {
               Container(
                   margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                   height: 50,
-                  child: Text('StartRangeDate:' '$_startDate')),
-              Container(height: 50, child: Text('EndRangeDate:' '$_endDate')),
+                  child: Text('StartRangeDate: ' '$_startDate')),
+              Container(height: 50, child: Text('EndRangeDate: ' '$_endDate')),
               Card(
                 margin: const EdgeInsets.fromLTRB(50, 40, 50, 100),
                 child: SfDateRangePicker(
@@ -121,5 +125,33 @@ class SelectedDateRange extends State<ListPage> {
           .toString();
       print(_endDate);
     });
+  }
+}
+checkRole(BuildContext context)async{
+  final sharedPreferences = await SharedPreferences.getInstance();
+  final role = sharedPreferences.getString('roles');
+
+  if(role == '[ROLE_GUEST]'){
+
+    showDialog<String>(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: const Text('You do not have this permission'),
+        content: const Text('Please log in with role Maintainer'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())),
+            child: const Text('Login'),
+          ),
+        ],
+      ),
+    );
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => MainPage())
+    );
   }
 }
