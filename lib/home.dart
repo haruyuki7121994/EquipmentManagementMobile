@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'MaintenanceCalendar.dart';
 import 'home_cubit.dart';
 import 'main_page.dart';
 import 'profile.dart';
@@ -40,6 +41,12 @@ class HomePage extends StatelessWidget {
                 ),
                 BottomNavigationBarItem(
                   icon: Icon(
+                    Icons.calendar_today_outlined,
+                  ),
+                  label: "",
+                ),
+                BottomNavigationBarItem(
+                  icon: Icon(
                     Icons.qr_code,
                   ),
                   label: "",
@@ -71,13 +78,16 @@ class HomePage extends StatelessWidget {
         context.read<HomeCubit>().getMain();
         break;
       case 1:
+        context.read<HomeCubit>().getCalendar();
+        break;
+      case 2:
         context.read<HomeCubit>().getQrcode();
         break;
 
-      case 2:
+      case 3:
         context.read<HomeCubit>().getNotification();
         break;
-      case 3:
+      case 4:
         context.read<HomeCubit>().getMore();
         break;
     }
@@ -88,10 +98,12 @@ class HomePage extends StatelessWidget {
       case 0:
         return MainPage();
       case 1:
-        return QrcodePage();
+        return MaintenanceCalendar();
       case 2:
-        return NotificationPage();
+        return QrcodePage();
       case 3:
+        return NotificationPage();
+      case 4:
         return Profile();
     }
     return MainPage();

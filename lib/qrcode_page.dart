@@ -79,7 +79,7 @@ class _MyHomePageState extends State<MyHomePage> {
               onQRViewCreated: _onQRViewCreated,
             ),
           ),
-          Expanded(child: (result != null) ? Text("${result!.code}") : Text("fail")),
+          Expanded(child: (result != null) ? Text("${result!.code}") : Text("Scan Qr code")),
 
           Expanded(
             flex: 1,
