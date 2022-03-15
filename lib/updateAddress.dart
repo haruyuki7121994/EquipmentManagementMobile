@@ -31,31 +31,16 @@ class _UpdateAddressPage extends State<UpdateAddressPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Update Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Update Address'),
         ),
         body: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "Address",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
-                SizedBox(height: 5),
                 TextFormField(
                   controller: _controller2,
                   decoration: const InputDecoration(
@@ -94,7 +79,6 @@ class _UpdateAddressPage extends State<UpdateAddressPage> {
             ),
           ),
         ),
-      ),
     );
   }
 }

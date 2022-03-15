@@ -28,7 +28,17 @@ class _ProfileState extends State<Profile> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return MaterialApp(
+        title: 'Profile',
+        theme: ThemeData(
+        primarySwatch: Colors.blue,
+    ),
+    home: Scaffold(
+      appBar: AppBar(
+        title: Text("Profile", style: TextStyle( fontSize: 20, color: Colors.white),),
+        backgroundColor: Colors.blue,
+        elevation: 1.0,
+      ),
       body: SafeArea(
           child: Column(
         children: [
@@ -57,7 +67,7 @@ class _ProfileState extends State<Profile> {
            logoutButton()
         ],
       )),
-    );
+    ));
   }
 
   Widget _getHeader() {

@@ -28,32 +28,18 @@ class _UpdatePhonePage extends State<UpdatePhonePage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Update Data Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
+    return  Scaffold(
         appBar: AppBar(
           title: const Text('Update Phone'),
         ),
-
         body: Form(
           key: _formKey,
           child: Padding(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+            padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "Phone number",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 25,
-                  ),
-                ),
-                SizedBox(height: 5),
                 TextFormField(
                   controller: _controller1,
                   decoration: const InputDecoration(
@@ -70,7 +56,7 @@ class _UpdatePhonePage extends State<UpdatePhonePage> {
                   padding: const EdgeInsets.symmetric(vertical: 16.0),
                   child: SizedBox(
                     width: double.infinity,
-                    height: 40,
+                    height: 30,
                     child: RaisedButton(
                       color: Colors.blue,
                       shape: RoundedRectangleBorder(
@@ -94,8 +80,7 @@ class _UpdatePhonePage extends State<UpdatePhonePage> {
             ),
           ),
         ),
-      ),
-    );
+      ) ;
   }
 }
 
