@@ -31,18 +31,33 @@ class _MyAppState extends State<DetailMaintenance> {
 
       title: Row(
         children: [
-          Text(
-          equipment.name,
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-          const SizedBox(width: 10,),
-          Text(
-            equipment.id ,
+          Padding(
+            padding: EdgeInsets.only(left: 10.0) ,
+            child: Text(
+            'Name: ${equipment.name}',
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+        ),
           ),
+          //const SizedBox(width: 10,),
+          // Text(
+          //   equipment.id ,
+          //   style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
+          // ),
         ]
       ),
       // subtitle: Text("Intermediate", style: TextStyle(color: Colors.white)),
+      subtitle: Padding(
+          padding: EdgeInsets.only(left: 10.0),
+          child: Text(equipment.qrcode,
+              style: TextStyle(color: Colors.black))),
+      // Row(
+      //   children: <Widget>[
+      //     Expanded(
+      //       flex: 4,
+      //       child:
+      //     )
+      //   ],
+      // ),
       trailing:
       Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0),
       onTap: () {

@@ -77,13 +77,30 @@ class SelectedDateRange extends State<ListPage> {
         body: SafeArea(
           child: Column(
             children: <Widget>[
-              Container(
-                  margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
-                  height: 50,
-                  child: Text('StartRangeDate: ' '$_startDate')),
-              Container(height: 50, child: Text('EndRangeDate: ' '$_endDate')),
+              // Container(
+              //     margin: const EdgeInsets.fromLTRB(0, 20, 0, 0),
+              //     height: 50,
+                  Card(
+                    
+                      elevation: 8.0,
+                      margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+                      child: Container(
+                          margin: const EdgeInsets.fromLTRB(2, 2, 2, 2),
+                               height: 35, width: 170,
+                          padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                          child: Text('Start Date: ' '$_startDate', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),))
+                  ),
+              //),
               Card(
-                margin: const EdgeInsets.fromLTRB(50, 40, 50, 100),
+                elevation: 8.0,
+                margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+                child: Container(height: 35, width: 170,
+                    margin: const EdgeInsets.fromLTRB(2, 2, 2, 2),
+                    padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                    child: Text('End Date: ' '$_endDate', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),),
+              ),
+              Card(
+                margin: const EdgeInsets.fromLTRB(50, 40, 50, 50),
                 child: SfDateRangePicker(
                   controller: _controller,
                   selectionMode: DateRangePickerSelectionMode.range,

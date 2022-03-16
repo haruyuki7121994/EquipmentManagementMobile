@@ -1,5 +1,4 @@
 import 'package:appqrcode/models/Equipment.dart';
-import 'package:appqrcode/product_card.dart';
 import "package:flutter/material.dart";
 import 'dart:io';
 import 'package:flutter/foundation.dart';
