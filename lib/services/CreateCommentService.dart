@@ -8,7 +8,7 @@ createComment(String title, String description, String equipmentId) async{
   final sharedPreferences = await SharedPreferences.getInstance();
   final value = sharedPreferences.getString('token');
   final shareUser = await SharedPreferences.getInstance();
-  final userId = shareUser.getString('type');
+  final userId = shareUser.getString('userId');
   print(userId);
   String _host = globals.Host();
   //http://localhost:8080/api/comments/create
