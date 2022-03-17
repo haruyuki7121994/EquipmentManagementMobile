@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:appqrcode/components/notification_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:appqrcode/host.dart' as globals;
+import 'package:html/parser.dart';
 
 
 import '../login.dart';
@@ -66,12 +67,15 @@ class _NotificationState  extends State<NotificationList> {
 
   @override
   Widget build(BuildContext context) {
+
     return Container(
       child: Card(
         child: FutureBuilder<List<Album>>(
+
             future: futureAlbum,
             builder: (context, snapshot) {
               if (snapshot.hasData) {
+
                 list = snapshot.data;
                 print(list);
                 ListTile makeListTile(Album album) => ListTile(
@@ -80,7 +84,7 @@ class _NotificationState  extends State<NotificationList> {
                           SizedBox(height: 30,),
                           NotificationItem(
                             title: album.title,
-                            description: album.description,
+                            description: _parseHtmlString(album.description),
                             icon: album.read ? Icons.mark_email_read : Icons.mark_email_unread,
                             created_at: album.createdAt,
                           ),
@@ -168,5 +172,9 @@ class Album {
     );
   }
 }
+String _parseHtmlString(String? htmlString) {
+  final document = parse(htmlString);
+  final String parsedString = parse(document.body?.text).documentElement!.text;
 
-
+  return parsedString;
+}
