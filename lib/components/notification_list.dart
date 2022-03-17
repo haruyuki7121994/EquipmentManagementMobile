@@ -1,22 +1,23 @@
 import 'dart:convert';
-import 'dart:ffi';
+import 'package:appqrcode/home.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 import 'package:appqrcode/components/notification_item.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:appqrcode/host.dart' as globals;
 
+
 import '../login.dart';
 import '../main_page.dart';
 
 class NotificationList extends StatefulWidget {
   static const routeName = "/profile";
-
   @override
   _NotificationState createState() => _NotificationState();
 
 
 }
+
 
 checkRole(BuildContext context)async{
   final sharedPreferences = await SharedPreferences.getInstance();
@@ -78,10 +79,10 @@ class _NotificationState  extends State<NotificationList> {
                         children:<Widget> [
                           SizedBox(height: 30,),
                           NotificationItem(
-                            title: album!.title,
-                            description: album!.description,
+                            title: album.title,
+                            description: album.description,
                             icon: album.read ? Icons.mark_email_read : Icons.mark_email_unread,
-                            created_at: album!.createdAt,
+                            created_at: album.createdAt,
                           ),
                         ],
                     ),
@@ -115,6 +116,7 @@ class _NotificationState  extends State<NotificationList> {
     );
   }
 }
+
 
 Future <List<Album>> fetchAlbum() async {
   final sharedPreferences = await SharedPreferences.getInstance();

@@ -125,7 +125,7 @@ class _ListPageState extends State<ListPage> {
                                       backgroundColor: Colors.blue,
                                       radius: 50.0,
                                       backgroundImage: AssetImage(
-                                        'assets/images/bench scale.png',
+                                        'images/welcome.png',
                                       ),
                                     ),
                                   ),

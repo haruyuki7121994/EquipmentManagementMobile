@@ -53,10 +53,6 @@ class _UpdatePage extends State<NewpasswordPage> {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Text(
-                      "Enter Code",
-                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-                    ),
                     TextFormField(
                       obscureText: !_showPass,
                       controller: _controller1,
@@ -80,10 +76,6 @@ class _UpdatePage extends State<NewpasswordPage> {
                     ),
                     SizedBox(
                       height: 20,
-                    ),
-                    Text(
-                      "Enter new Password",
-                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                     ),
                     TextFormField(
                       obscureText: !_showPass,
@@ -110,10 +102,6 @@ class _UpdatePage extends State<NewpasswordPage> {
                     ),
                     SizedBox(
                       height: 20,
-                    ),
-                    Text(
-                      "Enter Repassword",
-                      style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
                     ),
                     TextFormField(
                       obscureText: !_showPass,
