@@ -100,7 +100,7 @@ class SelectedDateRange extends State<ListPage> {
                     child: Text('End Date: ' '$_endDate', style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),),),
               ),
               Card(
-                margin: const EdgeInsets.fromLTRB(50, 40, 50, 50),
+                margin: const EdgeInsets.fromLTRB(50, 20, 50, 20),
                 child: SfDateRangePicker(
                   controller: _controller,
                   selectionMode: DateRangePickerSelectionMode.range,
