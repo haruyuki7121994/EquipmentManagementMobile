@@ -56,6 +56,11 @@ class _ListPageState extends State<FilterJobByDate> {
                         style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
                       ),
                     ]),
+                subtitle: Padding(
+                    padding: EdgeInsets.only(left: 10.0),
+                    child: maintenance.status == 0 ? Text("pending",
+                        style: TextStyle(color: Colors.orange)): Text("Done",
+                        style: TextStyle(color: Colors.green)) ),
                 trailing:
                 Icon(Icons.keyboard_arrow_right, color: Colors.black, size: 30.0),
                 onTap: () {

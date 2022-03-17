@@ -6,22 +6,26 @@ class Maintenance {
   final String dateMaintenance;
   final String user;
   final List<Equipment>? equipment;
-  Maintenance({required this.id, required this. dateMaintenance, required this.equipment, required this.user});
+  final int status;
+  Maintenance({required this.id, required this. dateMaintenance, required this.equipment, required this.user, required this.status});
 
   factory Maintenance.fromJson(Map<String, dynamic> data){
     final id = data['id'];
     final equipmentData = data['equipments'] as List<dynamic>?;
     final user = data['user']['username'];
+    final status = data['status'];
     final equipment = equipmentData != null
         ? equipmentData.map((equipmentData) => Equipment.fromJson(equipmentData))
         .toList()
         : <Equipment>[];
     final dateMaintenance = data['dateMaintenance'];
+
     return Maintenance(
         id: id,
         dateMaintenance: dateMaintenance,
         user: user,
-        equipment: equipment
+        equipment: equipment,
+        status: status,
     );
   }
 

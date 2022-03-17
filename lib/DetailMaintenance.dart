@@ -38,9 +38,10 @@ class _MyAppState extends State<DetailMaintenance> {
             style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
         ),
           ),
-          //const SizedBox(width: 10,),
+
+          // const SizedBox(width: 10,),
           // Text(
-          //   equipment.id ,
+          //   equipment. ,
           //   style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
           // ),
         ]
