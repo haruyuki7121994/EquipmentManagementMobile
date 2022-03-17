@@ -231,13 +231,37 @@ class _LoginPageState extends State<LoginPage>{
         _saveUserId(userId);
         username = jsonResponse['data']['username'];
         _saveUsename(username);
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) {
-          return BlocProvider(
-            create: (_) => HomeCubit(),
-            child: HomePage(),
+        bool active = jsonResponse['data']['active'];
+
+        if(!active){
+
+          showDialog<String>(
+            context: context,
+            builder: (BuildContext context) => AlertDialog(
+              title: const Text('Account has not been activated'),
+              content: const Text('Please notify admin or log in with another account'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () => Navigator.pop(context, 'Cancel'),
+                  child: const Text('Cancel'),
+                ),
+                TextButton(
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage())),
+                  child: const Text('Login'),
+                ),
+              ],
+            ),
           );
-        }));
+        }else{
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) {
+            return BlocProvider(
+              create: (_) => HomeCubit(),
+              child: HomePage(),
+            );
+          }));
+        }
+
       }
     }
 
