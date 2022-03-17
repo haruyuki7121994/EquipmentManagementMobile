@@ -93,7 +93,7 @@ class SelectedDateRange extends State<ListPage> {
               //),
               Card(
                 elevation: 8.0,
-                margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 20),
+                margin: new EdgeInsets.symmetric(horizontal: 10.0, vertical: 0  ),
                 child: Container(height: 35, width: 170,
                     margin: const EdgeInsets.fromLTRB(2, 2, 2, 2),
                     padding: EdgeInsets.fromLTRB(10, 10, 10, 10),
