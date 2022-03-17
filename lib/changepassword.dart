@@ -25,12 +25,7 @@ class _UpdatePage extends State<ChangepasswordPage> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'change Password',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
-      home: Scaffold(
+    return Scaffold(
         appBar: AppBar(
           title: const Text('Change Password'),
         ),
@@ -43,10 +38,7 @@ class _UpdatePage extends State<ChangepasswordPage> {
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: <Widget>[
-                Text(
-                  "Enter new Password",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
-                ),
+
                 TextFormField(
                   obscureText: !_showPass,
                   controller: _controller1,
@@ -72,11 +64,7 @@ class _UpdatePage extends State<ChangepasswordPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 40,
-                ),
-                Text(
-                  "Enter Repassword",
-                  style: TextStyle(fontWeight: FontWeight.w400, fontSize: 20),
+                  height: 20,
                 ),
                 TextFormField(
                   obscureText: !_showPass,
@@ -96,7 +84,7 @@ class _UpdatePage extends State<ChangepasswordPage> {
                   ),
                 ),
                 SizedBox(
-                  height: 40,
+                  height: 20,
                 ),
 
                 Padding(
@@ -127,7 +115,6 @@ class _UpdatePage extends State<ChangepasswordPage> {
             ),
           ),
         ),
-      ),
     );
   }
 

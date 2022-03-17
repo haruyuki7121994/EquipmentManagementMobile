@@ -1,6 +1,8 @@
 import 'dart:convert';
 import 'package:appqrcode/changepassword.dart';
 import 'package:appqrcode/updateAddress.dart';
+import 'package:appqrcode/welcome.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:http/http.dart' as http;
 import 'package:appqrcode/updatePhone.dart';
 import 'package:flutter/material.dart';
@@ -31,72 +33,71 @@ class _ProfileState extends State<Profile> {
     return MaterialApp(
         title: 'Profile',
         theme: ThemeData(
-        primarySwatch: Colors.blue,
-    ),
-    home: Scaffold(
-      appBar: AppBar(
-        title: Text("Profile", style: TextStyle( fontSize: 20, color: Colors.white),),
-        backgroundColor: Colors.blue,
-        elevation: 1.0,
-      ),
-      body: SafeArea(
-          child: Column(
-        children: [
-          _getHeader(),
-          SizedBox(
-            height: 10,
+          primarySwatch: Colors.blue,
+        ),
+        home: Scaffold(
+          appBar: AppBar(
+            title: Text(
+              "Profile",
+              style: TextStyle(fontSize: 20, color: Colors.white),
+            ),
+            backgroundColor: Colors.blue,
+            elevation: 1.0,
           ),
-          _profileName("username"),
-          SizedBox(
-            height: 14,
-          ),
-          _heading("Profile Details"),
-          SizedBox(
-            height: 6,
-          ),
-          _detailsCard(),
-          SizedBox(
-            height: 10,
-          ),
-          _heading("Settings"),
-          SizedBox(
-            height: 6,
-          ),
-          _settingsCard(),
-          Spacer(),
-           logoutButton()
-        ],
-      )),
-    ));
+          body: SafeArea(
+              child: Column(
+            children: [
+              _getHeader(),
+              SizedBox(
+                height: 10,
+              ),
+              _profileName("username"),
+              SizedBox(
+                height: 14,
+              ),
+              _heading("Profile Details"),
+              SizedBox(
+                height: 6,
+              ),
+              _detailsCard(),
+              SizedBox(
+                height: 6,
+              ),
+              _settingsCard(),
+              Spacer(),
+              logoutButton()
+            ],
+          )),
+        ));
   }
 
   Widget _getHeader() {
     return Container(
-        padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
-        width: MediaQuery.of(context).size.width / 3,
-        height: MediaQuery.of(context).size.width / 3,
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.white, width: 5),
-          shape: BoxShape.circle,
-          color: Colors.white,
-          image: DecorationImage(
-              fit: BoxFit.cover, image: AssetImage("images/user.png")),
-        ),
-        // child: Center(
-        //   child: Padding(
-        //     padding: EdgeInsets.fromLTRB(70, 40, 0, 0),
-        //     child: CircleAvatar(
-        //       backgroundColor: Colors.black,
-        //       child: IconButton(
-        //         icon: Icon(
-        //           Icons.edit,
-        //           color: Colors.white,
-        //         ),
-        //         onPressed: () {},
-        //       ),
-        //     ),
-        //   ),
-        // )
+      padding: EdgeInsets.fromLTRB(10, 40, 10, 0),
+      width: MediaQuery.of(context).size.width / 3,
+      height: MediaQuery.of(context).size.width / 3,
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.white, width: 5),
+        shape: BoxShape.circle,
+        color: Colors.white,
+        image: DecorationImage(
+            fit: BoxFit.cover, image: AssetImage("images/user.png")),
+      ),
+      // child: Center(
+      //   child: Padding(
+      //     padding: EdgeInsets.fromLTRB(70, 40, 0, 0),
+      //     child: CircleAvatar(
+      //       backgroundColor: Colors.black,
+      //       child: IconButton(
+      //         icon: Icon(
+      //           Icons.edit,
+      //           color: Colors.white,
+      //         ),
+      //         onPressed: () {},
+      //       ),
+      //     ),
+      //   ),
+      // )
     );
   }
 
@@ -176,6 +177,7 @@ class _ProfileState extends State<Profile> {
                   children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Row(
                           children: [
@@ -186,7 +188,11 @@ class _ProfileState extends State<Profile> {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.email ,color: Colors.redAccent,),
+                                      leading: Icon(
+                                        Icons.email,
+                                        size: 20,
+                                        color: Colors.redAccent,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -197,9 +203,8 @@ class _ProfileState extends State<Profile> {
                               child: Text(
                                 snapshot.data!.email,
                                 style: TextStyle(
-                                  fontSize: 12.0,
-                                  fontWeight: FontWeight.bold
-                                ),
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -223,10 +228,15 @@ class _ProfileState extends State<Profile> {
                               width: 60.0,
                               height: 60.0,
                               child: Container(
+                                height: 20,
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.phone, color: Colors.green, ),
+                                      leading: Icon(
+                                        Icons.phone,
+                                        size: 20,
+                                        color: Colors.green,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -237,9 +247,8 @@ class _ProfileState extends State<Profile> {
                               child: Text(
                                 snapshot.data!.phone,
                                 style: TextStyle(
-                                  fontSize: 12.0,
-                                    fontWeight: FontWeight.bold
-                                ),
+                                    fontSize: 12.0,
+                                    fontWeight: FontWeight.bold),
                                 overflow: TextOverflow.ellipsis,
                               ),
                             ),
@@ -248,6 +257,7 @@ class _ProfileState extends State<Profile> {
                         IconButton(
                           icon: Icon(
                             Icons.edit,
+                            size: 20,
                             color: Colors.black54,
                           ),
                           onPressed: () {
@@ -280,7 +290,11 @@ class _ProfileState extends State<Profile> {
                                 child: Column(
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.location_on, color: Colors.blue,),
+                                      leading: Icon(
+                                        Icons.location_on,
+                                        size: 20,
+                                        color: Colors.blue,
+                                      ),
                                     )
                                   ],
                                 ),
@@ -292,7 +306,7 @@ class _ProfileState extends State<Profile> {
                                 snapshot.data!.address,
                                 style: TextStyle(
                                   fontSize: 12.0,
-                                    fontWeight: FontWeight.bold,
+                                  fontWeight: FontWeight.bold,
                                 ),
                                 overflow: TextOverflow.ellipsis,
                               ),
@@ -302,6 +316,7 @@ class _ProfileState extends State<Profile> {
                         IconButton(
                           icon: Icon(
                             Icons.edit,
+                            size: 20,
                             color: Colors.black54,
                           ),
                           onPressed: () {
@@ -328,16 +343,19 @@ class _ProfileState extends State<Profile> {
 
   Widget _settingsCard() {
     return Padding(
-      padding: const EdgeInsets.all(8.0),
+      padding: const EdgeInsets.all(0.0),
       child: Card(
         elevation: 4,
         child: Column(
           children: [
             SizedBox(
-              height: 10,
+              height: 1,
             ),
             ListTile(
-              leading: Icon(Icons.password_sharp, color: Colors.black,),
+              leading: Icon(
+                Icons.password_sharp,
+                color: Colors.black,
+              ),
               title: Text("Change Password"),
               onTap: () {
                 Navigator.push(
@@ -394,10 +412,8 @@ Future<Album> fetchAlbum() async {
   final value = sharedPreferences.getString('token');
   String _host = globals.Host();
   String api = 'api/auth/profile';
-  String url = _host+api;
-  final response = await http
-      .get(Uri.parse(url),
-      headers: {
+  String url = _host + api;
+  final response = await http.get(Uri.parse(url), headers: {
     "content-type": "application/json",
     "accept": "application/json",
     'Authorization': 'Bearer $value'
