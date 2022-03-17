@@ -13,6 +13,7 @@ import 'package:appqrcode/details/components/GalleryPhotoWrapper.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:appqrcode/details/components/GalleryThumbnail.dart';
 import 'package:appqrcode/details/components/comment.dart';
+import 'package:html/parser.dart';
 
 class EquipmentDetail extends StatefulWidget {
   final Equipment equipment;
@@ -57,6 +58,7 @@ class _MyAppState extends State<EquipmentDetail> {
   @override
   Widget build(BuildContext context) {
     String qrocde = widget.equipment.qrcode;
+    String description = _parseHtmlString(widget.equipment.description);
     return Scaffold(
       appBar: AppBar(
         title: Text("Detail", style: TextStyle( fontSize: 30, color: Colors.white),),
@@ -138,7 +140,7 @@ class _MyAppState extends State<EquipmentDetail> {
                       SizedBox(height: 10,),
                       LableInfo(header: "Category", name: widget.equipment.category),
                       SizedBox(height: 10,),
-                      LableInfo(header: "Description", name: widget.equipment.description),
+                      LableInfo(header: "Description", name: description),
                       SizedBox(height: 10,),
                       LableInfo(header: "Location", name: widget.equipment.location),
                       SizedBox(height: 10,),
@@ -184,4 +186,11 @@ class LableInfo extends StatelessWidget {
       ),
     );
   }
+}
+
+String _parseHtmlString(String? htmlString) {
+  final document = parse(htmlString);
+  final String parsedString = parse(document.body?.text).documentElement!.text;
+
+  return parsedString;
 }
